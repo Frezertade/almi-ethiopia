@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Leaf } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import LocaleSwitcher from "./locale-switcher";
+import { images } from "@/lib/config";
+import Image from "next/image";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -48,16 +50,22 @@ export default function Navbar() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className={`p-2 rounded-lg transition-colors ${scrolled ? "bg-primary" : "bg-white/20 backdrop-blur-sm"}`}>
-              <Leaf className={`w-6 h-6 ${scrolled ? "text-white" : "text-primary"}`} />
+          <Link href="/" className="flex items-center gap-3 group">
+            <div className={`relative w-10 h-10 md:w-12 md:h-12 rounded-lg overflow-hidden transition-colors ${scrolled ? "bg-white" : "bg-white/20 backdrop-blur-sm"}`}>
+              <Image
+                src={images.logo}
+                alt="ALMI Ethiopia Logo"
+                fill
+                className="object-contain p-0.5"
+                unoptimized
+              />
             </div>
             <div className="flex flex-col">
               <span className={`text-lg md:text-xl font-bold font-serif leading-tight transition-colors ${scrolled ? "text-primary" : "text-white"}`}>
                 ALMI Ethiopia
               </span>
               <span className={`text-[10px] md:text-xs leading-tight tracking-wider uppercase transition-colors ${scrolled ? "text-stone-medium" : "text-white/80"}`}>
-                Sustainable Agriculture
+                Sowing Seeds for a Sustainable Future
               </span>
             </div>
           </Link>

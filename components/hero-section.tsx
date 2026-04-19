@@ -12,10 +12,10 @@ export default function HeroSection() {
       <div className="absolute inset-0">
         <img
           src={images.hero}
-          alt="Ethiopian agricultural landscape"
-          className="w-full h-full object-cover"
+          alt="ALMI Ethiopia sustainable agriculture"
+          className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-primary-dark/70" />
+        <div className="absolute inset-0 bg-primary-dark/80" />
       </div>
 
       {/* Background Pattern */}
