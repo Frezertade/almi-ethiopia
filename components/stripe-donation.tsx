@@ -4,31 +4,32 @@ import { useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { stripeConfig } from "@/lib/config";
 import { Heart, Loader2 } from "lucide-react";
+import { useI18n } from "./i18n-provider";
 
 const stripePromise = loadStripe(stripeConfig.publishableKey);
 
 interface DonationLevel {
   amount: string;
   priceId: string;
-  description: string;
+  descriptionKey: string;
 }
-
-const donationLevels: DonationLevel[] = [
-  { amount: "$25", priceId: stripeConfig.priceIds.usd25, description: "Seeds & tools for one urban farmer" },
-  { amount: "$50", priceId: stripeConfig.priceIds.usd50, description: "Plant 20 multipurpose trees" },
-  { amount: "$100", priceId: stripeConfig.priceIds.usd100, description: "Train 5 farmers" },
-  { amount: "$250", priceId: stripeConfig.priceIds.usd250, description: "One improved tillage tool" },
-  { amount: "$500", priceId: stripeConfig.priceIds.usd500, description: "Community demonstration plot" },
-  { amount: "$1,000", priceId: stripeConfig.priceIds.usd1000, description: "Village water harvesting pond" },
-];
 
 export default function StripeDonation() {
   const [loading, setLoading] = useState<string | null>(null);
+  const { t } = useI18n();
+
+  const donationLevels: DonationLevel[] = [
+    { amount: "$25", priceId: stripeConfig.priceIds.usd25, descriptionKey: "donate.seedDesc" },
+    { amount: "$50", priceId: stripeConfig.priceIds.usd50, descriptionKey: "donate.treeDesc" },
+    { amount: "$100", priceId: stripeConfig.priceIds.usd100, descriptionKey: "donate.trainDesc" },
+    { amount: "$250", priceId: stripeConfig.priceIds.usd250, descriptionKey: "donate.toolDesc" },
+    { amount: "$500", priceId: stripeConfig.priceIds.usd500, descriptionKey: "donate.plotDesc" },
+    { amount: "$1,000", priceId: stripeConfig.priceIds.usd1000, descriptionKey: "donate.waterDesc" },
+  ];
 
   const handleDonate = async (level: DonationLevel) => {
-    // Don't proceed if using placeholder price ID
     if (level.priceId.startsWith("price_")) {
-      alert("Stripe is not fully configured yet. Please set up your Stripe Price IDs in lib/config.ts");
+      alert(t("donate.stripeNotConfigured"));
       return;
     }
 
@@ -75,7 +76,7 @@ export default function StripeDonation() {
             </div>
           </div>
           <p className="text-stone-medium text-sm leading-relaxed">
-            {level.description}
+            {t(level.descriptionKey)}
           </p>
         </button>
       ))}

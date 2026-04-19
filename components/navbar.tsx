@@ -7,22 +7,24 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import LocaleSwitcher from "./locale-switcher";
 import { images } from "@/lib/config";
+import { useI18n } from "./i18n-provider";
 import Image from "next/image";
-
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about", label: "About" },
-  { href: "/projects", label: "Projects" },
-  { href: "/blog", label: "Blog" },
-  { href: "/get-involved", label: "Get Involved" },
-  { href: "/donate", label: "Donate" },
-  { href: "/contact", label: "Contact" },
-];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
+  const { t } = useI18n();
+
+  const navLinks = [
+    { href: "/", label: t("nav.home") as string },
+    { href: "/about", label: t("nav.about") as string },
+    { href: "/projects", label: t("nav.projects") as string },
+    { href: "/blog", label: t("nav.blog") as string },
+    { href: "/get-involved", label: t("nav.getInvolved") as string },
+    { href: "/donate", label: t("nav.donate") as string },
+    { href: "/contact", label: t("nav.contact") as string },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -65,7 +67,7 @@ export default function Navbar() {
                 ALMI Ethiopia
               </span>
               <span className={`text-[10px] md:text-xs leading-tight tracking-wider uppercase transition-colors ${scrolled ? "text-stone-medium" : "text-white/80"}`}>
-                Sowing Seeds for a Sustainable Future
+                {t("hero.badge")}
               </span>
             </div>
           </Link>

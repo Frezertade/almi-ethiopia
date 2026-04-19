@@ -1,13 +1,10 @@
+"use client";
+
 import PageHeader from "@/components/page-header";
 import AnimatedSection from "@/components/animated-section";
 import { images } from "@/lib/config";
 import { CheckCircle, Target, Eye, Heart } from "lucide-react";
-
-export const metadata = {
-  title: "About Us",
-  description:
-    "Learn about ALMI Ethiopia's mission, vision, objectives, and the dedicated team working to restore Ethiopia's agricultural future.",
-};
+import { useI18n } from "@/components/i18n-provider";
 
 const objectives = [
   "Planting multipurpose tree species to increase forest and fruit trees in degraded areas, farmlands, homesteads, gullies, and farm boundaries.",
@@ -144,11 +141,13 @@ Adept at all stages of end-to-end software development—from requirement defini
 ];
 
 export default function AboutPage() {
+  const { t } = useI18n();
+
   return (
     <>
       <PageHeader
-        title="About Us"
-        subtitle="Restoring Ethiopia's agricultural capacity through sustainable practices and community empowerment."
+        title={t("about.pageTitle")}
+        subtitle={t("about.pageSubtitle")}
       />
 
       {/* Banner Image */}
@@ -184,9 +183,9 @@ export default function AboutPage() {
                 <div className="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-6">
                   <Target className="w-7 h-7 text-primary" />
                 </div>
-                <h2 className="text-2xl font-bold text-stone-dark mb-4 font-serif">Mission</h2>
+                <h2 className="text-2xl font-bold text-stone-dark mb-4 font-serif">{t("about.mission")}</h2>
                 <p className="text-stone-medium leading-relaxed">
-                  To promote and support the sustainable management of Natural Resources, implement efficient Agricultural Technologies, and offer a range of opportunities to enhance the livelihoods of our targeted beneficiaries in partnership with States, local communities, and producers (Farmers) across the country who steward our Nation's Forest, Pasturelands, and croplands.
+                  To promote and support the sustainable management of Natural Resources, implement efficient Agricultural Technologies, and offer a range of opportunities to enhance the livelihoods of our targeted beneficiaries in partnership with States, local communities, and producers (Farmers) across the country who steward our Nation&apos;s Forest, Pasturelands, and croplands.
                 </p>
                 <p className="text-stone-medium leading-relaxed mt-4">
                   To protect and enhance Natural Resources such as air, land, water, wildlife, forests, and the ecosystems that sustain all life to achieve a healthier and more sustainable environment to combat the looming threat of climate change and to ensure the right of all people to use and enjoy these Natural Resources in their work and leisure to achieve common goals and progress, as a forward-thinking approach is necessary when forming partnerships.
@@ -199,9 +198,9 @@ export default function AboutPage() {
                 <div className="w-14 h-14 bg-accent/10 rounded-xl flex items-center justify-center mb-6">
                   <Eye className="w-7 h-7 text-accent" />
                 </div>
-                <h2 className="text-2xl font-bold text-stone-dark mb-4 font-serif">Vision</h2>
+                <h2 className="text-2xl font-bold text-stone-dark mb-4 font-serif">{t("about.vision")}</h2>
                 <p className="text-stone-medium leading-relaxed">
-                  To provide economic opportunity through innovation, helping rural Ethiopia to thrive; promote agriculture production that better nourishes Ethiopians and to preserve our Nation's Natural Resources through conservation, afforestation of healthy small-scale farmlands for a sustainable future.
+                  To provide economic opportunity through innovation, helping rural Ethiopia to thrive; promote agriculture production that better nourishes Ethiopians and to preserve our Nation&apos;s Natural Resources through conservation, afforestation of healthy small-scale farmlands for a sustainable future.
                 </p>
               </div>
             </AnimatedSection>
@@ -211,9 +210,9 @@ export default function AboutPage() {
                 <div className="w-14 h-14 bg-secondary/10 rounded-xl flex items-center justify-center mb-6">
                   <Heart className="w-7 h-7 text-secondary" />
                 </div>
-                <h2 className="text-2xl font-bold text-stone-dark mb-4 font-serif">Objective</h2>
+                <h2 className="text-2xl font-bold text-stone-dark mb-4 font-serif">{t("about.objective")}</h2>
                 <p className="text-stone-medium leading-relaxed">
-                  The project's main objective is to prevent or reverse the persistent deterioration of Natural Resources and the decline of soil fertility and productivity to restore and improve agricultural production, food security, and livelihoods of farming communities.
+                  The project&apos;s main objective is to prevent or reverse the persistent deterioration of Natural Resources and the decline of soil fertility and productivity to restore and improve agricultural production, food security, and livelihoods of farming communities.
                 </p>
               </div>
             </AnimatedSection>
@@ -222,7 +221,7 @@ export default function AboutPage() {
           {/* Main Focuses */}
           <AnimatedSection className="mb-10">
             <h2 className="text-3xl md:text-4xl font-bold text-stone-dark font-serif text-center mb-4">
-              The Main Focuses Are
+              {t("about.focusesTitle")}
             </h2>
           </AnimatedSection>
 
@@ -246,11 +245,14 @@ export default function AboutPage() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-16">
             <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-              Leadership
+              {t("about.teamSubtitle")}
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-stone-dark font-serif mt-3 mb-4">
-              Meet Our Team
+              {t("about.teamTitle")}
             </h2>
+            <p className="text-stone-medium text-lg max-w-2xl mx-auto">
+              {t("about.teamDesc")}
+            </p>
           </AnimatedSection>
 
           <AnimatedSection>
@@ -270,7 +272,7 @@ export default function AboutPage() {
                 {/* CEO Bio */}
                 <div className="lg:col-span-3 p-8 md:p-12 flex flex-col justify-center">
                   <div className="inline-block w-fit px-4 py-1.5 bg-accent/10 text-accent font-semibold text-sm rounded-full mb-4">
-                    {ceo.role}
+                    {t("about.ceoRole")}
                   </div>
                   <h3 className="text-3xl md:text-4xl font-bold text-stone-dark font-serif mb-6">
                     {ceo.name}
@@ -303,7 +305,6 @@ export default function AboutPage() {
                         className="h-full w-auto object-contain object-bottom"
                       />
                     </div>
-                    {/* Decorative element */}
                     <div className="absolute top-4 right-4 w-16 h-16 bg-primary/5 rounded-full blur-xl" />
                   </div>
 

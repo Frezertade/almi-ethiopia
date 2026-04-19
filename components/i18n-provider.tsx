@@ -17,7 +17,7 @@ export type Locale = "en" | "am";
 interface I18nContextType {
   locale: Locale;
   setLocale: (locale: Locale) => void;
-  t: (key: string) => string | string[] | Record<string, string>;
+  t: (key: string) => string;
 }
 
 const I18nContext = createContext<I18nContextType>({
@@ -47,9 +47,10 @@ export function I18nProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("almi-locale", newLocale);
   };
 
-  const t = (key: string) => {
+  const t = (key: string): string => {
     const msgs = messagesMap[locale] as any;
-    return getNestedValue(msgs, key) || key;
+    const value = getNestedValue(msgs, key);
+    return typeof value === "string" ? value : key;
   };
 
   // Prevent hydration mismatch

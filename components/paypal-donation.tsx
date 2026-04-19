@@ -2,17 +2,17 @@
 
 import { paypalConfig } from "@/lib/config";
 import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { useI18n } from "./i18n-provider";
 
 export default function PayPalDonation() {
+  const { t } = useI18n();
   const clientId = paypalConfig.clientId;
 
-  // Don't render if using placeholder
   if (clientId === "YOUR_PAYPAL_CLIENT_ID") {
     return (
       <div className="bg-cream rounded-2xl p-8 text-center border border-stone-light/10">
         <p className="text-stone-medium">
-          PayPal donation button will appear here once configured.
-          Add your PayPal Client ID to <code className="bg-white px-2 py-1 rounded text-sm">lib/config.ts</code>
+          {t("donate.paypalPlaceholder")}
         </p>
       </div>
     );
@@ -28,7 +28,7 @@ export default function PayPalDonation() {
     >
       <div className="bg-white rounded-2xl p-8 shadow-sm border border-stone-light/10 max-w-md mx-auto">
         <h3 className="text-lg font-bold text-stone-dark mb-4 font-serif text-center">
-          Donate with PayPal
+          {t("donate.paypalTitle")}
         </h3>
         <PayPalButtons
           style={{ layout: "vertical", shape: "rect", color: "gold" }}

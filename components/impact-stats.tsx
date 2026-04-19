@@ -4,33 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useEffect, useState } from "react";
 import { TreePine, Users, Sprout, Globe } from "lucide-react";
 import AnimatedSection from "./animated-section";
-
-const stats = [
-  {
-    icon: TreePine,
-    value: 10000,
-    suffix: "+",
-    label: "Trees to be Planted",
-  },
-  {
-    icon: Users,
-    value: 5000,
-    suffix: "+",
-    label: "Farmers to be Supported",
-  },
-  {
-    icon: Sprout,
-    value: 15,
-    suffix: "+",
-    label: "Regions Covered",
-  },
-  {
-    icon: Globe,
-    value: 30,
-    suffix: "%",
-    label: "Productivity Increase",
-  },
-];
+import { useI18n } from "./i18n-provider";
 
 function Counter({ value, suffix }: { value: number; suffix: string }) {
   const [count, setCount] = useState(0);
@@ -64,6 +38,35 @@ function Counter({ value, suffix }: { value: number; suffix: string }) {
 }
 
 export default function ImpactStats() {
+  const { t } = useI18n();
+
+  const stats = [
+    {
+      icon: TreePine,
+      value: 10000,
+      suffix: "+",
+      label: t("impact.trees"),
+    },
+    {
+      icon: Users,
+      value: 5000,
+      suffix: "+",
+      label: t("impact.farmers"),
+    },
+    {
+      icon: Sprout,
+      value: 15,
+      suffix: "+",
+      label: t("impact.regions"),
+    },
+    {
+      icon: Globe,
+      value: 30,
+      suffix: "%",
+      label: t("impact.productivity"),
+    },
+  ];
+
   return (
     <section className="py-20 md:py-28 bg-primary relative overflow-hidden">
       <div className="absolute inset-0 opacity-10">
@@ -78,19 +81,19 @@ export default function ImpactStats() {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <AnimatedSection className="text-center mb-16">
           <span className="text-accent-light font-semibold text-sm uppercase tracking-wider">
-            Our Impact
+            {t("impact.subtitle")}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white font-serif mt-3 mb-4">
-            Making a Difference
+            {t("impact.title")}
           </h2>
           <p className="text-white/70 text-lg max-w-2xl mx-auto">
-            Our initiatives are designed to create measurable, lasting change in Ethiopian communities.
+            {t("impact.description")}
           </p>
         </AnimatedSection>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, index) => (
-            <AnimatedSection key={stat.label} delay={index * 0.1}>
+            <AnimatedSection key={stat.label as string} delay={index * 0.1}>
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 text-center border border-white/10"

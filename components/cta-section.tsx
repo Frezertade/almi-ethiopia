@@ -4,8 +4,11 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, HandHeart } from "lucide-react";
 import AnimatedSection from "./animated-section";
+import { useI18n } from "./i18n-provider";
 
 export default function CTASection() {
+  const { t } = useI18n();
+
   return (
     <section className="py-20 md:py-28 bg-warm-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -19,13 +22,13 @@ export default function CTASection() {
               <div className="text-center lg:text-left max-w-xl">
                 <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full text-white/90 text-sm font-medium mb-6">
                   <HandHeart className="w-4 h-4" />
-                  Join Our Mission
+                  {t("cta.badge")}
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold text-white font-serif mb-4">
-                  Help Restore Ethiopia&apos;s Agriculture and Environment
+                  {t("cta.title")}
                 </h2>
                 <p className="text-white/80 text-lg">
-                  Ethiopia&apos;s agriculture suffers from declining soil fertility, inefficient farming practices, and deforestation. Your support can transform lives.
+                  {t("cta.description")}
                 </p>
               </div>
 
@@ -35,7 +38,7 @@ export default function CTASection() {
                     href="/donate"
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent hover:bg-accent-light text-white font-semibold rounded-xl transition-colors duration-300"
                   >
-                    Donate Now
+                    {t("cta.donateBtn")}
                     <ArrowRight className="w-5 h-5" />
                   </Link>
                 </motion.div>
@@ -44,7 +47,7 @@ export default function CTASection() {
                     href="/get-involved"
                     className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl backdrop-blur-sm border border-white/20 transition-colors duration-300"
                   >
-                    Get Involved
+                    {t("cta.involvedBtn")}
                   </Link>
                 </motion.div>
               </div>

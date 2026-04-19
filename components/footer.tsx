@@ -2,26 +2,29 @@
 
 import Link from "next/link";
 import { Leaf, Mail, Phone, MapPin, Globe, MessageCircle, ExternalLink, Camera } from "lucide-react";
-
-const quickLinks = [
-  { href: "/about", label: "About Us" },
-  { href: "/projects", label: "Our Projects" },
-  { href: "/blog", label: "Blog & News" },
-  { href: "/get-involved", label: "Get Involved" },
-  { href: "/donate", label: "Donate" },
-  { href: "/contact", label: "Contact" },
-];
-
-const focusAreas = [
-  "Agroforestry",
-  "Urban Agriculture",
-  "Farm Implements",
-  "Community Engagement",
-  "Soil Conservation",
-  "Climate Adaptation",
-];
+import { useI18n } from "./i18n-provider";
 
 export default function Footer() {
+  const { t } = useI18n();
+
+  const quickLinks = [
+    { href: "/about", label: t("nav.about") },
+    { href: "/projects", label: t("nav.projects") },
+    { href: "/blog", label: t("nav.blog") },
+    { href: "/get-involved", label: t("nav.getInvolved") },
+    { href: "/donate", label: t("nav.donate") },
+    { href: "/contact", label: t("nav.contact") },
+  ];
+
+  const focusAreas = [
+    t("focusAreas.agroforestry"),
+    t("focusAreas.urbanAg"),
+    t("focusAreas.farmImplements"),
+    t("focusAreas.community"),
+    t("focusAreas.soil"),
+    t("focusAreas.climate"),
+  ];
+
   return (
     <footer className="bg-primary-dark text-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -35,7 +38,7 @@ export default function Footer() {
               <span className="text-xl font-bold font-serif">ALMI Ethiopia</span>
             </Link>
             <p className="text-white/70 text-sm leading-relaxed mb-6">
-              Empowering communities with sustainable agriculture, agroforestry, and land management practices across Ethiopia.
+              {t("footer.description")}
             </p>
             <div className="flex gap-3">
               {[Globe, MessageCircle, ExternalLink, Camera].map((Icon, i) => (
@@ -53,7 +56,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-6 font-serif">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-6 font-serif">{t("footer.quickLinks")}</h3>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.href}>
@@ -70,10 +73,10 @@ export default function Footer() {
 
           {/* Focus Areas */}
           <div>
-            <h3 className="text-lg font-semibold mb-6 font-serif">Focus Areas</h3>
+            <h3 className="text-lg font-semibold mb-6 font-serif">{t("footer.focusAreas")}</h3>
             <ul className="space-y-3">
               {focusAreas.map((area) => (
-                <li key={area}>
+                <li key={area as string}>
                   <span className="text-white/70 text-sm">{area}</span>
                 </li>
               ))}
@@ -82,7 +85,7 @@ export default function Footer() {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-6 font-serif">Contact Us</h3>
+            <h3 className="text-lg font-semibold mb-6 font-serif">{t("footer.contactUs")}</h3>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-accent-light shrink-0 mt-0.5" />
@@ -115,7 +118,7 @@ export default function Footer() {
 
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/50 text-sm">
-            &copy; {new Date().getFullYear()} ALMI Ethiopia. All rights reserved.
+            &copy; {new Date().getFullYear()} ALMI Ethiopia. {t("footer.rights")}
           </p>
           <div className="flex gap-6">
             <Link href="#" className="text-white/50 hover:text-white/70 text-sm transition-colors">

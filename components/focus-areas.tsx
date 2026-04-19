@@ -10,77 +10,74 @@ import {
   Shield,
 } from "lucide-react";
 import AnimatedSection from "./animated-section";
-
-const areas = [
-  {
-    icon: TreePine,
-    title: "Agroforestry",
-    description:
-      "Establishing multistory agroforestry systems to combat deforestation, land degradation, and declining soil fertility while promoting high-value crops.",
-    stat: "10,000+ Trees",
-    statLabel: "Target planting",
-  },
-  {
-    icon: Building2,
-    title: "Urban Agriculture",
-    description:
-      "Promoting appropriate agricultural technologies in cities to provide alternative income sources for women, veterans, and unemployed youth.",
-    stat: "15+ Cities",
-    statLabel: "Planned outreach",
-  },
-  {
-    icon: Tractor,
-    title: "Improved Farm Implements",
-    description:
-      "Introducing efficient tillage practices and energy tools to replace the inefficient single-ox plow system and boost productivity.",
-    stat: "50%",
-    statLabel: "Efficiency increase",
-  },
-  {
-    icon: Users,
-    title: "Community Engagement",
-    description:
-      "Upholding participatory approaches where communities are empowered in decision-making to ensure relevant and beneficial initiatives.",
-    stat: "100+",
-    statLabel: "Communities",
-  },
-  {
-    icon: Sprout,
-    title: "Soil Conservation",
-    description:
-      "Implementing sustainable land management practices including terracing, contour farming, and organic matter enrichment.",
-    stat: "30%",
-    statLabel: "Fertility improvement",
-  },
-  {
-    icon: Shield,
-    title: "Climate Adaptation",
-    description:
-      "Building resilience against climate change through diversified farming systems, water harvesting, and drought-resistant crops.",
-    stat: "6 Zones",
-    statLabel: "Agroecological coverage",
-  },
-];
+import { useI18n } from "./i18n-provider";
 
 export default function FocusAreas() {
+  const { t } = useI18n();
+
+  const areas = [
+    {
+      icon: TreePine,
+      title: t("focusAreas.agroforestry"),
+      description: t("focusAreas.agroforestryDesc"),
+      stat: "10,000+",
+      statLabel: "Trees",
+    },
+    {
+      icon: Building2,
+      title: t("focusAreas.urbanAg"),
+      description: t("focusAreas.urbanAgDesc"),
+      stat: "15+",
+      statLabel: "Cities",
+    },
+    {
+      icon: Tractor,
+      title: t("focusAreas.farmImplements"),
+      description: t("focusAreas.farmImplementsDesc"),
+      stat: "50%",
+      statLabel: "Efficiency",
+    },
+    {
+      icon: Users,
+      title: t("focusAreas.community"),
+      description: t("focusAreas.communityDesc"),
+      stat: "100+",
+      statLabel: "Communities",
+    },
+    {
+      icon: Sprout,
+      title: t("focusAreas.soil"),
+      description: t("focusAreas.soilDesc"),
+      stat: "30%",
+      statLabel: "Fertility",
+    },
+    {
+      icon: Shield,
+      title: t("focusAreas.climate"),
+      description: t("focusAreas.climateDesc"),
+      stat: "6",
+      statLabel: "Zones",
+    },
+  ];
+
   return (
     <section className="py-20 md:py-28 bg-cream">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-16">
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-            What We Do
+            {t("focusAreas.subtitle")}
           </span>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-stone-dark font-serif mt-3 mb-4">
-            Our Focus Areas
+            {t("focusAreas.title")}
           </h2>
           <p className="text-stone-medium text-lg max-w-2xl mx-auto">
-            We address Ethiopia&apos;s agricultural challenges through comprehensive, sustainable interventions.
+            {t("focusAreas.description")}
           </p>
         </AnimatedSection>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {areas.map((area, index) => (
-            <AnimatedSection key={area.title} delay={index * 0.1}>
+            <AnimatedSection key={area.title as string} delay={index * 0.1}>
               <motion.div
                 whileHover={{ y: -6, scale: 1.02 }}
                 transition={{ duration: 0.3 }}

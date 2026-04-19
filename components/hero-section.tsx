@@ -4,15 +4,18 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { images } from "@/lib/config";
+import { useI18n } from "./i18n-provider";
 
 export default function HeroSection() {
+  const { t } = useI18n();
+
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
           src={images.hero}
-          alt="Hands nurturing a young plant - symbolizing growth and partnership"
+          alt="Two trees shaking hands - partnership and growth"
           className="w-full h-full object-cover object-center scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-primary-dark/40 via-primary-dark/30 to-primary-dark/60" />
@@ -55,7 +58,7 @@ export default function HeroSection() {
             className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white/90 text-sm font-medium mb-8 border border-white/10"
           >
             <span className="w-2 h-2 bg-accent rounded-full animate-pulse" />
-            Restoring Ethiopia&apos;s Agricultural Future
+            {t("hero.badge")}
           </motion.div>
 
           <motion.h1
@@ -64,8 +67,8 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white font-serif leading-tight mb-6"
           >
-            Empowering Communities with{" "}
-            <span className="text-accent-light">Sustainable Agriculture</span>
+            {t("hero.title")}{" "}
+            <span className="text-accent-light">{t("hero.titleHighlight")}</span>
           </motion.h1>
 
           <motion.p
@@ -74,7 +77,7 @@ export default function HeroSection() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed"
           >
-            We are determined to restore Ethiopia&apos;s agricultural capacity while promoting sustainable practices. Together, we can foster a greener, more prosperous future.
+            {t("hero.description")}
           </motion.p>
 
           <motion.div
@@ -87,14 +90,14 @@ export default function HeroSection() {
               href="/donate"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-accent hover:bg-accent-light text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-accent/25"
             >
-              Support Our Cause
+              {t("hero.ctaPrimary")}
               <ArrowRight className="w-5 h-5" />
             </Link>
             <Link
               href="/about"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl backdrop-blur-sm border border-white/20 transition-all duration-300"
             >
-              Learn More
+              {t("hero.ctaSecondary")}
             </Link>
           </motion.div>
         </div>
@@ -112,7 +115,7 @@ export default function HeroSection() {
           transition={{ duration: 2, repeat: Infinity }}
           className="flex flex-col items-center gap-2 text-white/50"
         >
-          <span className="text-xs uppercase tracking-widest">Scroll</span>
+          <span className="text-xs uppercase tracking-widest">{t("common.scroll")}</span>
           <ChevronDown className="w-5 h-5" />
         </motion.div>
       </motion.div>

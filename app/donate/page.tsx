@@ -1,22 +1,36 @@
+"use client";
+
 import PageHeader from "@/components/page-header";
 import AnimatedSection from "@/components/animated-section";
 import StripeDonation from "@/components/stripe-donation";
 import PayPalDonation from "@/components/paypal-donation";
 import { images } from "@/lib/config";
-import { Heart, CheckCircle, ArrowRight } from "lucide-react";
-
-export const metadata = {
-  title: "Donate",
-  description:
-    "Support ALMI Ethiopia's mission to restore Ethiopia's agricultural capacity and empower farming communities.",
-};
+import { CheckCircle, ArrowRight } from "lucide-react";
+import { useI18n } from "@/components/i18n-provider";
 
 export default function DonatePage() {
+  const { t } = useI18n();
+
+  const transparencyItems = [
+    { label: t("donate.programCosts"), pct: "85%" },
+    { label: t("donate.adminCosts"), pct: "10%" },
+    { label: t("donate.fundraising"), pct: "5%" },
+  ];
+
+  const whyDonate = [
+    t("donate.why1"),
+    t("donate.why2"),
+    t("donate.why3"),
+    t("donate.why4"),
+    t("donate.why5"),
+    t("donate.why6"),
+  ];
+
   return (
     <>
       <PageHeader
-        title="Donate"
-        subtitle="Your contribution directly impacts farming communities across Ethiopia."
+        title={t("donate.pageTitle")}
+        subtitle={t("donate.pageSubtitle")}
       />
 
       {/* Impact Image */}
@@ -48,10 +62,10 @@ export default function DonatePage() {
               Make a Difference
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-stone-dark font-serif mt-3 mb-4">
-              Choose Your Impact
+              {t("donate.impactTitle")}
             </h2>
             <p className="text-stone-medium text-lg max-w-2xl mx-auto">
-              Every donation, no matter the size, helps us restore Ethiopia&apos;s agricultural capacity and empower communities.
+              {t("donate.impactDesc")}
             </p>
           </AnimatedSection>
 
@@ -82,16 +96,16 @@ export default function DonatePage() {
               <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full blur-3xl" />
               <div className="relative z-10">
                 <h3 className="text-2xl md:text-3xl font-bold text-white font-serif mb-4">
-                  Make a Custom Donation
+                  {t("donate.customTitle")}
                 </h3>
                 <p className="text-white/80 mb-8">
-                  Want to contribute a different amount or set up recurring donations? Contact us directly and we will help you set it up.
+                  {t("donate.customDesc")}
                 </p>
                 <a
                   href="mailto:info@almiethiopia.org"
                   className="inline-flex items-center gap-2 px-8 py-4 bg-accent hover:bg-accent-light text-white font-semibold rounded-xl transition-colors duration-300"
                 >
-                  Contact Us to Donate
+                  {t("donate.customBtn")}
                   <ArrowRight className="w-5 h-5" />
                 </a>
               </div>
@@ -109,18 +123,14 @@ export default function DonatePage() {
                 Transparency
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-stone-dark font-serif mt-3 mb-6">
-                Where Your Money Goes
+                {t("donate.transparencyTitle")}
               </h2>
               <p className="text-stone-medium leading-relaxed mb-8">
-                We are committed to financial transparency. The majority of every dollar donated goes directly to our programs in the field. Our administrative costs are kept minimal through the dedication of our volunteer board and partners.
+                {t("donate.transparencyDesc")}
               </p>
               <div className="space-y-4">
-                {[
-                  { label: "Direct Program Costs", pct: "85%" },
-                  { label: "Administrative & Operations", pct: "10%" },
-                  { label: "Fundraising", pct: "5%" },
-                ].map((item) => (
-                  <div key={item.label}>
+                {transparencyItems.map((item) => (
+                  <div key={item.label as string}>
                     <div className="flex justify-between mb-1.5">
                       <span className="text-stone-dark text-sm font-medium">
                         {item.label}
@@ -143,17 +153,10 @@ export default function DonatePage() {
             <AnimatedSection delay={0.2}>
               <div className="bg-white rounded-3xl p-8 border border-stone-light/10">
                 <h3 className="text-xl font-bold text-stone-dark mb-6 font-serif">
-                  Why Donate to ALMI Ethiopia?
+                  {t("donate.whyTitle")}
                 </h3>
                 <div className="space-y-4">
-                  {[
-                    "100% of donations support Ethiopian farming communities",
-                    "Experienced team with decades of on-the-ground expertise",
-                    "Participatory approach ensures community ownership",
-                    "Focus on long-term sustainability, not short-term fixes",
-                    "Registered nonprofit with transparent financial practices",
-                    "Direct impact reporting to all donors",
-                  ].map((item, i) => (
+                  {whyDonate.map((item, i) => (
                     <div key={i} className="flex gap-3">
                       <CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                       <span className="text-stone-medium text-sm">{item}</span>

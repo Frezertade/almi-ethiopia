@@ -1,3 +1,5 @@
+"use client";
+
 import PageHeader from "@/components/page-header";
 import AnimatedSection from "@/components/animated-section";
 import { images } from "@/lib/config";
@@ -10,115 +12,106 @@ import {
   Droplets,
   ArrowRight,
 } from "lucide-react";
-
-export const metadata = {
-  title: "Our Projects",
-  description:
-    "Explore ALMI Ethiopia's initiatives in agroforestry, urban agriculture, farm implements, and community engagement.",
-};
-
-const projectImages = [
-  images.agroforestry,
-  images.urbanAg,
-  images.farmImplements,
-  images.community,
-  images.soil,
-  images.water,
-];
-
-const projects = [
-  {
-    icon: TreePine,
-    title: "National Agroforestry Program",
-    category: "Agroforestry",
-    description:
-      "A comprehensive initiative to establish multistory agroforestry systems across degraded farmlands, homesteads, and gullies. We plant multipurpose tree species including fruit trees, nitrogen-fixing species, and timber trees to restore soil fertility and provide additional income sources.",
-    goals: [
-      "Plant 10,000+ multipurpose trees annually",
-      "Establish demonstration plots in 20 communities",
-      "Train 500 farmers in agroforestry management",
-    ],
-  },
-  {
-    icon: Building2,
-    title: "Urban Agriculture Innovation",
-    category: "Urban Agriculture",
-    description:
-      "Promoting appropriate agricultural technologies in urban areas to provide alternative income sources for disadvantaged groups including women, veterans, and unemployed youth. Our urban gardens use container farming, vertical growing, and hydroponic systems.",
-    goals: [
-      "Establish 50 urban community gardens",
-      "Support 1,000 urban farmers with training",
-      "Create market linkages for urban produce",
-    ],
-  },
-  {
-    icon: Tractor,
-    title: "Modern Farm Implements Initiative",
-    category: "Technology",
-    description:
-      "Introducing and developing improved farm implements and efficient energy tools to replace the outdated single-ox plow system. This project addresses low productivity, food insecurity, and energy insufficiency among farming communities.",
-    goals: [
-      "Distribute 200 improved tillage tools",
-      "Demonstrate efficient energy solutions",
-      "Reduce farming labor by 40%",
-    ],
-  },
-  {
-    icon: Users,
-    title: "Community Empowerment Network",
-    category: "Community",
-    description:
-      "Building participatory platforms where communities actively shape project design and implementation. We establish farmer field schools, women's cooperatives, and youth agricultural clubs to ensure inclusive development.",
-    goals: [
-      "Form 30 farmer cooperatives",
-      "Train 100 community facilitators",
-      "Achieve 50% women participation",
-    ],
-  },
-  {
-    icon: Sprout,
-    title: "Soil Health Restoration",
-    category: "Conservation",
-    description:
-      "Implementing comprehensive soil conservation measures including terracing, contour farming, cover cropping, and organic matter enrichment. Our approach combines indigenous knowledge with modern soil science.",
-    goals: [
-      "Treat 5,000 hectares with conservation measures",
-      "Establish 100 composting demonstration sites",
-      "Increase soil organic matter by 25%",
-    ],
-  },
-  {
-    icon: Droplets,
-    title: "Water Harvesting & Irrigation",
-    category: "Water",
-    description:
-      "Developing small-scale water harvesting structures and drip irrigation systems to combat drought and extend growing seasons. This project is critical for building climate resilience in rain-fed agricultural areas.",
-    goals: [
-      "Construct 50 water harvesting ponds",
-      "Install 200 drip irrigation kits",
-      "Reduce crop failure by 60%",
-    ],
-  },
-];
+import { useI18n } from "@/components/i18n-provider";
 
 export default function ProjectsPage() {
+  const { t } = useI18n();
+
+  const projectImages = [
+    images.agroforestry,
+    images.urbanAg,
+    images.farmImplements,
+    images.community,
+    images.soil,
+    images.water,
+  ];
+
+  const projects = [
+    {
+      icon: TreePine,
+      title: t("projects.agroforestryTitle"),
+      category: "Agroforestry",
+      description: t("projects.agroforestryDesc"),
+      goals: [
+        "Plant 10,000+ multipurpose trees annually",
+        "Establish demonstration plots in 20 communities",
+        "Train 500 farmers in agroforestry management",
+      ],
+    },
+    {
+      icon: Building2,
+      title: t("projects.urbanTitle"),
+      category: "Urban Agriculture",
+      description: t("projects.urbanDesc"),
+      goals: [
+        "Establish 50 urban community gardens",
+        "Support 1,000 urban farmers with training",
+        "Create market linkages for urban produce",
+      ],
+    },
+    {
+      icon: Tractor,
+      title: t("projects.implementsTitle"),
+      category: "Technology",
+      description: t("projects.implementsDesc"),
+      goals: [
+        "Distribute 200 improved tillage tools",
+        "Demonstrate efficient energy solutions",
+        "Reduce farming labor by 40%",
+      ],
+    },
+    {
+      icon: Users,
+      title: t("projects.communityTitle"),
+      category: "Community",
+      description: t("projects.communityDesc"),
+      goals: [
+        "Form 30 farmer cooperatives",
+        "Train 100 community facilitators",
+        "Achieve 50% women participation",
+      ],
+    },
+    {
+      icon: Sprout,
+      title: t("projects.soilTitle"),
+      category: "Conservation",
+      description: t("projects.soilDesc"),
+      goals: [
+        "Treat 5,000 hectares with conservation measures",
+        "Establish 100 composting demonstration sites",
+        "Increase soil organic matter by 25%",
+      ],
+    },
+    {
+      icon: Droplets,
+      title: t("projects.waterTitle"),
+      category: "Water",
+      description: t("projects.waterDesc"),
+      goals: [
+        "Construct 50 water harvesting ponds",
+        "Install 200 drip irrigation kits",
+        "Reduce crop failure by 60%",
+      ],
+    },
+  ];
+
   return (
     <>
       <PageHeader
-        title="Our Projects"
-        subtitle="Comprehensive initiatives designed to transform Ethiopia's agricultural landscape and empower communities."
+        title={t("projects.pageTitle")}
+        subtitle={t("projects.pageSubtitle")}
       />
 
       <section className="py-20 md:py-28 bg-warm-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-8">
             {projects.map((project, index) => (
-              <AnimatedSection key={project.title} delay={index * 0.1}>
+              <AnimatedSection key={project.title as string} delay={index * 0.1}>
                 <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 h-full border border-stone-light/10 group">
                   <div className="h-56 relative overflow-hidden">
                     <img
                       src={projectImages[index]}
-                      alt={project.title}
+                      alt={project.title as string}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
@@ -141,7 +134,7 @@ export default function ProjectsPage() {
 
                     <div className="bg-cream rounded-xl p-5 mb-6">
                       <h4 className="text-sm font-semibold text-stone-dark mb-3 uppercase tracking-wider">
-                        Key Goals
+                        {t("projects.goalsTitle")}
                       </h4>
                       <ul className="space-y-2">
                         {project.goals.map((goal, i) => (
@@ -157,7 +150,7 @@ export default function ProjectsPage() {
                     </div>
 
                     <span className="inline-flex items-center gap-2 text-primary font-semibold text-sm group-hover:text-primary-dark transition-colors">
-                      Learn More
+                      {t("common.learnMore")}
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                     </span>
                   </div>
