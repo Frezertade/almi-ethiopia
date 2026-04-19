@@ -12,14 +12,14 @@ export default function HeroSection() {
       <div className="absolute inset-0">
         <img
           src={images.hero}
-          alt="ALMI Ethiopia sustainable agriculture"
-          className="w-full h-full object-cover object-center"
+          alt="Hands nurturing a young plant - symbolizing growth and partnership"
+          className="w-full h-full object-cover object-center scale-105"
         />
-        <div className="absolute inset-0 bg-primary-dark/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-dark/80 via-primary-dark/70 to-primary-dark/90" />
       </div>
 
-      {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
+      {/* Subtle pattern overlay */}
+      <div className="absolute inset-0 opacity-5">
         <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
           <defs>
             <pattern id="hero-grid" width="8" height="8" patternUnits="userSpaceOnUse">
@@ -31,19 +31,19 @@ export default function HeroSection() {
       </div>
 
       {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/40 via-transparent to-primary-dark/60" />
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-warm-white to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-transparent to-primary-dark/50" />
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-warm-white to-transparent" />
 
-      {/* Decorative circles */}
+      {/* Decorative ambient glows */}
       <motion.div
-        animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.15, 0.1] }}
+        animate={{ scale: [1, 1.2, 1], opacity: [0.08, 0.12, 0.08] }}
         transition={{ duration: 8, repeat: Infinity }}
-        className="absolute top-20 right-20 w-96 h-96 bg-secondary/20 rounded-full blur-3xl"
+        className="absolute top-20 right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl"
       />
       <motion.div
-        animate={{ scale: [1, 1.3, 1], opacity: [0.05, 0.1, 0.05] }}
+        animate={{ scale: [1, 1.3, 1], opacity: [0.04, 0.08, 0.04] }}
         transition={{ duration: 10, repeat: Infinity, delay: 2 }}
-        className="absolute bottom-40 left-10 w-72 h-72 bg-accent/20 rounded-full blur-3xl"
+        className="absolute bottom-40 left-10 w-72 h-72 bg-secondary/20 rounded-full blur-3xl"
       />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-20">

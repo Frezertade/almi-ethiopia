@@ -17,19 +17,20 @@ const objectives = [
   "Empowering women and youth in urban areas to make informed decisions and choose suitable technologies to improve their economic status.",
 ];
 
-const team = [
-  {
-    name: "Dr. Kefeni Kejela",
-    role: "CEO and President of ALMI Ethiopia",
-    image: images.drKefeni,
-    bio: `Dr Kefeni Kejela has served as a Soil Scientist in the Ministry of Agriculture, Department of Soil and Water Conservation in Ethiopia for over 10 years conducting soil and water conservation research with particular emphasis on soil productivity and agricultural production in 6 different agroecological zones of Ethiopia and Eritrea before coming to USA. He also provided technical support such as Training and workshops for employees working for the Department of Soil and Water Conservation in the Ministry of Agriculture – Ethiopia implementing soil and water conservation activities in the densely populated and highly degraded highlands of Ethiopia funded by SIDA (Swedish International Development Agency), CIPAR (Canadian International Physician Aid and Relief), WFP (World Food Program), UNDP (United Nations Development Program), SADC (Swiss Agency for Development and Cooperation) in Ethiopia. Upon completion of his Ph.D. in Environmental Science at Oklahoma State University, Dr Kejela began his career as a Resource Soil Scientist and Soil Conservationist in the States of Maine and Pennsylvania in the United States Department of Agriculture, Natural Resources Conservation Services in several field offices for the last 20 years. During his 20 years of service in USDA/Natural Resources Conservation Services, he provided leadership in the development, analyses, interpretation, and use of land and water resource data, including collection of information on soil resources, existing land use, and conservation treatment needed in support of the planning and implementation of soil and water conservation systems. Dr Kejela has promoted these values since arriving in the U.S. from Ethiopia in 1997.
+const ceo = {
+  name: "Dr. Kefeni Kejela",
+  role: "CEO and President of ALMI Ethiopia",
+  image: images.drKefeni,
+  bio: `Dr Kefeni Kejela has served as a Soil Scientist in the Ministry of Agriculture, Department of Soil and Water Conservation in Ethiopia for over 10 years conducting soil and water conservation research with particular emphasis on soil productivity and agricultural production in 6 different agroecological zones of Ethiopia and Eritrea before coming to USA. He also provided technical support such as Training and workshops for employees working for the Department of Soil and Water Conservation in the Ministry of Agriculture – Ethiopia implementing soil and water conservation activities in the densely populated and highly degraded highlands of Ethiopia funded by SIDA (Swedish International Development Agency), CIPAR (Canadian International Physician Aid and Relief), WFP (World Food Program), UNDP (United Nations Development Program), SADC (Swiss Agency for Development and Cooperation) in Ethiopia. Upon completion of his Ph.D. in Environmental Science at Oklahoma State University, Dr Kejela began his career as a Resource Soil Scientist and Soil Conservationist in the States of Maine and Pennsylvania in the United States Department of Agriculture, Natural Resources Conservation Services in several field offices for the last 20 years. During his 20 years of service in USDA/Natural Resources Conservation Services, he provided leadership in the development, analyses, interpretation, and use of land and water resource data, including collection of information on soil resources, existing land use, and conservation treatment needed in support of the planning and implementation of soil and water conservation systems. Dr Kejela has promoted these values since arriving in the U.S. from Ethiopia in 1997.
 
 He won the USDA/NRCS Individual National Civil Rights Award of 2022 for his significant contribution to USDA/NRCS in civil rights program delivery. He demonstrated honesty, integrity, impartiality, objectivity, unity, and diversity in his everyday work with customers including Mennonite farmers, limited-resource or beginning urban farmers in Philadelphia and Pittsburgh, and traditional corn/soybean producers in Pennsylvania. In 2017, He received the USDA Public Service Award for contributing to outreach, soil health, and promotion of Best Management Practices to sustain the productivity of crop and pasture lands.
 
 Dr. Kejela holds a Ph.D. in Environmental Science from Oklahoma State University, USA, an MSc (honors degree) in Soil Science from Krasnodar Institute of Tropical and Subtropical Agriculture, former Soviet Union, and an MSc in Resource Assessment for Development Planning from the University of East Anglia (England) United Kingdom.
 
 Dr. Kefeni served as a Soil Health Cadre in the State of Pennsylvania, USA Providing soil-related training for States and Federal Natural Resource Management employees for the last 10 years. Dr Kefeni has published over 20 Scientific Research Papers in various journals on soils and soil management & also published a book entitled "Heavy Metal Leaching in Different Environments, 2010.`,
-  },
+};
+
+const team = [
   {
     name: "Assefa Foche (MBA)",
     role: "Executive member and Secretary-ALMI-Ethiopia",
@@ -154,16 +155,19 @@ export default function AboutPage() {
       <section className="py-12 bg-warm-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
-            <div className="rounded-3xl overflow-hidden h-64 md:h-96 relative">
+            <div className="rounded-3xl overflow-hidden h-72 md:h-[28rem] relative shadow-xl">
               <img
                 src={images.aboutBanner}
                 alt="ALMI Ethiopia agricultural landscape"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/60 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-8">
-                <p className="text-white text-lg md:text-xl font-medium max-w-2xl">
+              <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/70 via-primary-dark/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
+                <p className="text-white text-xl md:text-2xl font-medium max-w-3xl font-serif">
                   Agroforestry and Agricultural Land Management Initiative in Ethiopia
+                </p>
+                <p className="text-white/80 mt-2 text-sm md:text-base">
+                  Sowing Seeds for a Sustainable Future
                 </p>
               </div>
             </div>
@@ -222,8 +226,9 @@ export default function AboutPage() {
             </h2>
           </AnimatedSection>
 
-          <div className="bg-primary rounded-3xl p-8 md:p-12 text-white relative overflow-hidden max-w-4xl mx-auto">
+          <div className="bg-primary rounded-3xl p-8 md:p-12 text-white relative overflow-hidden max-w-4xl mx-auto shadow-lg">
             <div className="absolute top-0 right-0 w-40 h-40 bg-accent/20 rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-32 h-32 bg-secondary/20 rounded-full blur-3xl" />
             <div className="relative z-10 space-y-4">
               {objectives.map((obj, index) => (
                 <div key={index} className="flex gap-4">
@@ -236,56 +241,84 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team Section */}
+      {/* CEO Section - Full Width */}
       <section className="py-20 md:py-28 bg-cream">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="text-center mb-16">
             <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-              Our People
+              Leadership
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-stone-dark font-serif mt-3 mb-4">
-              Our Special Team
+              Meet Our Team
             </h2>
-            <p className="text-stone-medium text-lg max-w-2xl mx-auto">
-              Dedicated professionals and volunteers working together to transform Ethiopia's agricultural landscape.
-            </p>
           </AnimatedSection>
 
-          <div className="space-y-16">
-            {team.map((member, index) => (
-              <AnimatedSection key={member.name} delay={index * 0.05}>
-                <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm border border-stone-light/10">
-                  <div className="flex flex-col md:flex-row gap-8">
-                    {/* Photo */}
-                    <div className="shrink-0 mx-auto md:mx-0">
-                      <div className="w-48 h-60 md:w-56 md:h-72 rounded-2xl overflow-hidden bg-cream">
-                        {member.image ? (
-                          <img
-                            src={member.image}
-                            alt={member.name}
-                            className="w-full h-full object-cover object-top"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-primary/10 flex items-center justify-center">
-                            <span className="text-primary text-2xl font-bold font-serif">
-                              {member.name.split(" ").map((n) => n[0]).join("")}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
+          <AnimatedSection>
+            <div className="bg-white rounded-3xl overflow-hidden shadow-lg border border-stone-light/10">
+              <div className="grid lg:grid-cols-5 gap-0">
+                {/* CEO Photo */}
+                <div className="lg:col-span-2 relative">
+                  <div className="h-80 lg:h-full min-h-[400px] relative bg-gradient-to-br from-primary/10 to-cream">
+                    <img
+                      src={ceo.image}
+                      alt={ceo.name}
+                      className="w-full h-full object-contain object-center p-6 lg:p-10"
+                    />
+                  </div>
+                </div>
 
-                    {/* Bio */}
-                    <div className="flex-grow">
-                      <h3 className="text-2xl font-bold text-stone-dark font-serif mb-1">
-                        {member.name}
-                      </h3>
-                      <p className="text-primary font-medium mb-6">
-                        {member.role}
-                      </p>
-                      <div className="text-stone-medium leading-relaxed whitespace-pre-line">
-                        {member.bio}
-                      </div>
+                {/* CEO Bio */}
+                <div className="lg:col-span-3 p-8 md:p-12 flex flex-col justify-center">
+                  <div className="inline-block w-fit px-4 py-1.5 bg-accent/10 text-accent font-semibold text-sm rounded-full mb-4">
+                    {ceo.role}
+                  </div>
+                  <h3 className="text-3xl md:text-4xl font-bold text-stone-dark font-serif mb-6">
+                    {ceo.name}
+                  </h3>
+                  <div className="text-stone-medium leading-relaxed whitespace-pre-line space-y-4">
+                    {ceo.bio.split('\n\n').map((paragraph, i) => (
+                      <p key={i}>{paragraph}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </AnimatedSection>
+        </div>
+      </section>
+
+      {/* Team Grid - 2 Column */}
+      <section className="py-20 md:py-28 bg-warm-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-2 gap-8">
+            {team.map((member, index) => (
+              <AnimatedSection key={member.name} delay={index * 0.08}>
+                <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-stone-light/10 h-full flex flex-col">
+                  {/* Photo Area with background */}
+                  <div className="relative h-72 md:h-80 bg-gradient-to-b from-primary/5 via-cream to-white overflow-hidden">
+                    <div className="absolute inset-0 flex items-end justify-center">
+                      <img
+                        src={member.image}
+                        alt={member.name}
+                        className="h-full w-auto object-contain object-bottom"
+                      />
+                    </div>
+                    {/* Decorative element */}
+                    <div className="absolute top-4 right-4 w-16 h-16 bg-primary/5 rounded-full blur-xl" />
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-6 md:p-8 flex-grow flex flex-col">
+                    <h3 className="text-xl md:text-2xl font-bold text-stone-dark font-serif mb-1">
+                      {member.name}
+                    </h3>
+                    <p className="text-primary font-medium text-sm mb-5">
+                      {member.role}
+                    </p>
+                    <div className="text-stone-medium text-sm leading-relaxed whitespace-pre-line flex-grow">
+                      {member.bio.split('\n\n').map((paragraph, i) => (
+                        <p key={i} className={i > 0 ? "mt-3" : ""}>{paragraph}</p>
+                      ))}
                     </div>
                   </div>
                 </div>
