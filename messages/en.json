@@ -1,0 +1,38 @@
+{
+  "metadata": {
+    "title": "ALMI Ethiopia - Agroforestry & Sustainable Agriculture",
+    "description": "Agroforestry and Agricultural Land Management Initiative in Ethiopia. Empowering communities with sustainable agriculture, agroforestry, and land management practices."
+  },
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "blog": "Blog",
+    "getInvolved": "Get Involved",
+    "donate": "Donate",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "Restoring Ethiopia's Agricultural Future",
+    "title": "Empowering Communities with",
+    "titleHighlight": "Sustainable Agriculture",
+    "description": "We are determined to restore Ethiopia's agricultural capacity while promoting sustainable practices. Together, we can foster a greener, more prosperous future.",
+    "ctaPrimary": "Support Our Cause",
+    "ctaSecondary": "Learn More"
+  },
+  "footer": {
+    "description": "Empowering communities with sustainable agriculture, agroforestry, and land management practices across Ethiopia.",
+    "quickLinks": "Quick Links",
+    "focusAreas": "Focus Areas",
+    "contactUs": "Contact Us",
+    "rights": "All rights reserved."
+  },
+  "common": {
+    "readMore": "Read More",
+    "learnMore": "Learn More",
+    "getInTouch": "Get in Touch",
+    "subscribe": "Subscribe",
+    "sendMessage": "Send Message",
+    "loading": "Loading..."
+  }
+}
