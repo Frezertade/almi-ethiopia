@@ -43,8 +43,8 @@ export const images = {
   // Brand
   logo: "https://almiethiopia.org/wp-content/uploads/2024/02/logo.png",
 
-  // Hero - symbolic hands holding seedling (partnership & growth)
-  hero: "https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=1920&q=85",
+  // Hero - AI-generated: two trees shaking hands (partnership & growth)
+  hero: "/tree-handshake.jpg",
 
   // About - real photos from original site
   aboutBanner: "https://almiethiopia.org/wp-content/uploads/2024/02/qtq80-Aq3KKw-e1708154156603.jpeg",
