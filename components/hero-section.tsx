@@ -15,7 +15,7 @@ export default function HeroSection() {
           alt="Hands nurturing a young plant - symbolizing growth and partnership"
           className="w-full h-full object-cover object-center scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-primary-dark/80 via-primary-dark/70 to-primary-dark/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary-dark/40 via-primary-dark/30 to-primary-dark/60" />
       </div>
 
       {/* Subtle pattern overlay */}
@@ -31,7 +31,7 @@ export default function HeroSection() {
       </div>
 
       {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary/30 via-transparent to-primary-dark/50" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary-dark/30" />
       <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-warm-white to-transparent" />
 
       {/* Decorative ambient glows */}

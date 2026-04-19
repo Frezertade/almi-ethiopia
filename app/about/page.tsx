@@ -161,7 +161,7 @@ export default function AboutPage() {
                 alt="ALMI Ethiopia agricultural landscape"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/70 via-primary-dark/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/50 via-primary-dark/10 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
                 <p className="text-white text-xl md:text-2xl font-medium max-w-3xl font-serif">
                   Agroforestry and Agricultural Land Management Initiative in Ethiopia

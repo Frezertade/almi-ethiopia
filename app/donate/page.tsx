@@ -29,7 +29,7 @@ export default function DonatePage() {
                 alt="Community farming in Ethiopia"
                 className="w-full h-full object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/60 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/30 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8">
                 <p className="text-white text-lg md:text-xl font-medium max-w-2xl">
                   Every donation plants a seed of hope in Ethiopian farming communities.
