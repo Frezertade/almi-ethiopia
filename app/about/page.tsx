@@ -110,7 +110,7 @@ Passion and Vision:
   },
   {
     name: "Erjabo Wanore",
-    role: "Executive Board Member-ALMI-Ethiopia",
+    role: "Executive member and PR Officer-ALMI-Ethiopia",
     image: images.erjaboWanore,
     bio: `Erjabo Wanore is an American of Ethiopian heritage and a business owner who has been in the residential construction industry for the past 15 years. He has extensive experience and knowledge of the industry that enabled him to build a solid network of like-minded entrepreneurs to make a difference in society.
 

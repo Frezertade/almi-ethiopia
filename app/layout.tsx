@@ -20,7 +20,7 @@ const lora = Lora({
 
 export const metadata: Metadata = {
   title: {
-    default: "ALMI Ethiopia - Agroforestry & Sustainable Agriculture",
+    default: "ALMI Ethiopia - Agroforestry & Agricultural Land Management",
     template: "%s | ALMI Ethiopia",
   },
   description:
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     "community empowerment",
   ],
   openGraph: {
-    title: "ALMI Ethiopia - Agroforestry & Sustainable Agriculture",
+    title: "ALMI Ethiopia - Agroforestry & Agricultural Land Management",
     description:
       "Empowering communities with sustainable agriculture and land management practices in Ethiopia.",
     url: "https://almiethiopia.org",
