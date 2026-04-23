@@ -49,20 +49,20 @@ export default function ImpactStats() {
     },
     {
       icon: Users,
-      value: 5000,
+      value: 15000,
       suffix: "+",
       label: t("impact.farmers"),
     },
     {
       icon: Sprout,
-      value: 15,
-      suffix: "+",
+      value: 4,
+      suffix: "",
       label: t("impact.regions"),
     },
     {
       icon: Globe,
-      value: 30,
-      suffix: "%",
+      value: 40,
+      suffix: "-50%",
       label: t("impact.productivity"),
     },
   ];
