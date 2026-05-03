@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import GoogleAnalytics from "@/components/google-analytics";
 import { I18nProvider } from "@/components/i18n-provider";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -62,6 +63,7 @@ export default function RootLayout({
           <main className="flex-grow">{children}</main>
           <Footer />
         </I18nProvider>
+        <Analytics />
       </body>
     </html>
   );
