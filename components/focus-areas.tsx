@@ -21,14 +21,14 @@ export default function FocusAreas() {
       title: t("focusAreas.agroforestry"),
       description: t("focusAreas.agroforestryDesc"),
       stat: "10,000+",
-      statLabel: "Trees",
+      statLabel: "Trees (Phase One)",
     },
     {
       icon: Building2,
       title: t("focusAreas.urbanAg"),
       description: t("focusAreas.urbanAgDesc"),
       stat: "15+",
-      statLabel: "Cities",
+      statLabel: "Cities (Phase One)",
     },
     {
       icon: Tractor,
@@ -42,7 +42,7 @@ export default function FocusAreas() {
       title: t("focusAreas.community"),
       description: t("focusAreas.communityDesc"),
       stat: "100+",
-      statLabel: "Communities",
+      statLabel: "Communities (Phase One)",
     },
     {
       icon: Sprout,
@@ -56,7 +56,7 @@ export default function FocusAreas() {
       title: t("focusAreas.climate"),
       description: t("focusAreas.climateDesc"),
       stat: "6",
-      statLabel: "Zones",
+      statLabel: "Zones (Phase One)",
     },
   ];
 
