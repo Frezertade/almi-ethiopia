@@ -62,3 +62,29 @@ body {
   background: rgba(45, 90, 61, 0.2);
   color: #1f2937;
 }
+
+/* ALMI image system: gives mixed source photos one consistent brand feel */
+.almi-image-treatment {
+  filter: saturate(0.92) contrast(1.04) brightness(0.98) sepia(0.04);
+}
+
+.almi-portrait-stage {
+  position: relative;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(193, 120, 23, 0.16), transparent 28%),
+    radial-gradient(circle at 88% 8%, rgba(45, 90, 61, 0.14), transparent 32%),
+    linear-gradient(145deg, #f8f3ea 0%, #eef4ea 52%, #ffffff 100%);
+}
+
+.almi-portrait-stage::before {
+  content: "";
+  position: absolute;
+  inset: 1rem;
+  border: 1px solid rgba(45, 90, 61, 0.08);
+  border-radius: 1.25rem;
+  pointer-events: none;
+}
+
+.almi-portrait-img {
+  filter: saturate(0.94) contrast(1.03) brightness(0.99) drop-shadow(0 18px 28px rgba(30, 61, 42, 0.16));
+}

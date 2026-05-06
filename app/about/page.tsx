@@ -158,7 +158,7 @@ export default function AboutPage() {
               <img
                 src={images.aboutBanner}
                 alt="ALMI Ethiopia agricultural landscape"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover almi-image-treatment"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/50 via-primary-dark/10 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8 md:p-12">
@@ -260,11 +260,11 @@ export default function AboutPage() {
               <div className="grid lg:grid-cols-5 gap-0">
                 {/* CEO Photo */}
                 <div className="lg:col-span-2 relative">
-                  <div className="h-80 lg:h-full min-h-[400px] relative bg-gradient-to-br from-primary/10 to-cream">
+                  <div className="h-80 lg:h-full min-h-[400px] relative almi-portrait-stage">
                     <img
                       src={ceo.image}
                       alt={ceo.name}
-                      className="w-full h-full object-contain object-center p-6 lg:p-10"
+                      className="w-full h-full object-contain object-center p-7 lg:p-12 almi-portrait-img"
                     />
                   </div>
                 </div>
@@ -297,12 +297,12 @@ export default function AboutPage() {
               <AnimatedSection key={member.name} delay={index * 0.08}>
                 <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-stone-light/10 h-full flex flex-col">
                   {/* Photo Area with background */}
-                  <div className="relative h-72 md:h-80 bg-gradient-to-b from-primary/5 via-cream to-white overflow-hidden">
+                  <div className="relative h-72 md:h-80 almi-portrait-stage overflow-hidden">
                     <div className="absolute inset-0 flex items-end justify-center">
                       <img
                         src={member.image}
                         alt={member.name}
-                        className="h-full w-auto object-contain object-bottom"
+                        className="h-[92%] max-w-[88%] w-auto object-contain object-bottom almi-portrait-img"
                       />
                     </div>
                     <div className="absolute top-4 right-4 w-16 h-16 bg-primary/5 rounded-full blur-xl" />

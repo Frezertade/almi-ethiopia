@@ -127,7 +127,7 @@ export default function ContactPage() {
               <img
                 src={images.contact}
                 alt="Ethiopian landscape where ALMI Ethiopia operates"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover almi-image-treatment"
               />
               <div className="absolute inset-0 bg-primary-dark/25 flex items-center justify-center">
                 <div className="text-center text-white p-8">

@@ -86,7 +86,7 @@ export default function GetInvolvedPage() {
               <img
                 src={images.getInvolved}
                 alt="Volunteers working together"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover almi-image-treatment"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/30 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8">

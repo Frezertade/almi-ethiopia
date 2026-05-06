@@ -112,7 +112,7 @@ export default function ProjectsPage() {
                     <img
                       src={projectImages[index]}
                       alt={project.title as string}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover almi-image-treatment group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
                     <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between">

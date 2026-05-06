@@ -69,7 +69,7 @@ export default function BlogContent({ posts }: BlogContentProps) {
                       <img
                         src={featuredPost.image}
                         alt={featuredPost.title}
-                        className="w-full h-full object-cover absolute inset-0"
+                        className="w-full h-full object-cover absolute inset-0 almi-image-treatment"
                       />
                     ) : (
                       <div className="bg-cream w-full h-full flex items-center justify-center absolute inset-0">
@@ -94,7 +94,7 @@ export default function BlogContent({ posts }: BlogContentProps) {
                       <img
                         src={post.image}
                         alt={post.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        className="w-full h-full object-cover almi-image-treatment group-hover:scale-105 transition-transform duration-500"
                       />
                     ) : (
                       <div className="bg-cream w-full h-full flex items-center justify-center">

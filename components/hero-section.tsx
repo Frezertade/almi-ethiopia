@@ -16,7 +16,7 @@ export default function HeroSection() {
         <img
           src={images.hero}
           alt="Two trees shaking hands - partnership and growth"
-          className="w-full h-full object-cover object-center scale-105"
+          className="w-full h-full object-cover object-center scale-105 almi-image-treatment"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-primary-dark/40 via-primary-dark/30 to-primary-dark/60" />
       </div>

@@ -27,7 +27,7 @@ export default function PageHeader({
           <img
             src={backgroundImage}
             alt=""
-            className="w-full h-full object-cover opacity-20"
+            className="w-full h-full object-cover opacity-20 almi-image-treatment"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-primary/80 to-primary" />
         </div>

@@ -41,7 +41,7 @@ export default function DonatePage() {
               <img
                 src={images.donate}
                 alt="Community farming in Ethiopia"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover almi-image-treatment"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary-dark/30 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-8">
