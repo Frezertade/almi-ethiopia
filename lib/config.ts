@@ -74,7 +74,7 @@ export const images = {
   drKefeni: "https://almiethiopia.org/wp-content/uploads/2024/02/Dr.-Kefene-phot-o1.png",
   assefaFoche: "https://almiethiopia.org/wp-content/uploads/2024/02/Screenshot-2024-02-15-at-6.23.03%E2%80%AFPM.png",
   abishuWogari: "https://almiethiopia.org/wp-content/uploads/2024/02/Abishu-wogari.png",
-  drDejene: "https://almiethiopia.org/wp-content/uploads/2024/02/Screenshot-2024-02-15-at-6.40.30%E2%80%AFPM.png",
+  drDejene: "/dr-dejene-alemayehu.jpg",
   mekonnenAbote: "https://almiethiopia.org/wp-content/uploads/2024/02/Screenshot-2024-02-15-at-6.44.09%E2%80%AFPM.png",
   drMelkamu: "https://almiethiopia.org/wp-content/uploads/2024/06/photo_2024-06-10-18.38.02.jpeg",
   erjaboWanore: "https://almiethiopia.org/wp-content/uploads/2024/06/photo_2024-06-10-18.29.21.jpeg",
