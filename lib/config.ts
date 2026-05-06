@@ -3,8 +3,10 @@
 
 export const siteConfig = {
   name: "ALMI Ethiopia",
-  url: "https://almiethiopia.org",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://almiethiopia.vercel.app",
   email: "info@almiethiopia.org",
+  description:
+    "Agroforestry and Agricultural Land Management Initiative in Ethiopia, empowering communities through sustainable agriculture, urban farming, soil conservation, climate adaptation, and youth and women livelihood opportunities.",
 };
 
 // Formspree - Sign up at https://formspree.io/ to get your form ID

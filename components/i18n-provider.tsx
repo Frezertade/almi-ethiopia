@@ -26,8 +26,11 @@ const I18nContext = createContext<I18nContextType>({
   t: (key: string) => key,
 });
 
-function getNestedValue(obj: any, path: string): any {
-  return path.split(".").reduce((current, key) => current?.[key], obj);
+function getNestedValue(obj: unknown, path: string): unknown {
+  return path.split(".").reduce<unknown>((current, key) => {
+    if (typeof current !== "object" || current === null) return undefined;
+    return (current as Record<string, unknown>)[key];
+  }, obj);
 }
 
 export function I18nProvider({ children }: { children: ReactNode }) {
@@ -37,6 +40,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const saved = localStorage.getItem("almi-locale") as Locale;
     if (saved && (saved === "en" || saved === "am")) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- localStorage is only available after mount; this prevents hydration mismatch.
       setLocaleState(saved);
     }
     setMounted(true);
@@ -48,7 +52,7 @@ export function I18nProvider({ children }: { children: ReactNode }) {
   };
 
   const t = (key: string): string => {
-    const msgs = messagesMap[locale] as any;
+    const msgs = messagesMap[locale];
     const value = getNestedValue(msgs, key);
     return typeof value === "string" ? value : key;
   };

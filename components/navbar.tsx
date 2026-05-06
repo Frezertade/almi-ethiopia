@@ -34,10 +34,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    setIsOpen(false);
-  }, [pathname]);
-
   return (
     <motion.header
       initial={{ y: -100 }}
@@ -136,6 +132,7 @@ export default function Navbar() {
                 >
                   <Link
                     href={link.href}
+                    onClick={() => setIsOpen(false)}
                     className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                       pathname === link.href
                         ? "bg-primary text-white"

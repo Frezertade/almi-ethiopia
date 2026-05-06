@@ -100,6 +100,29 @@ export default function HeroSection() {
               {t("hero.ctaSecondary")}
             </Link>
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+            className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3 max-w-3xl mx-auto"
+            aria-label="ALMI Ethiopia phase one impact targets"
+          >
+            {[
+              ["10,000+", "Trees"],
+              ["15+", "Cities"],
+              ["100+", "Communities"],
+              ["6", "Zones"],
+            ].map(([value, label]) => (
+              <div
+                key={label}
+                className="rounded-2xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-md shadow-lg shadow-primary-dark/10"
+              >
+                <div className="text-2xl md:text-3xl font-bold font-serif text-accent-light">{value}</div>
+                <div className="text-xs uppercase tracking-[0.2em] text-white/75">{label}</div>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </div>
 
