@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5B8C3E"/>
+      <stop offset="100%" stop-color="#2F5C24"/>
+    </linearGradient>
+    <linearGradient id="soilGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8B5A2B"/>
+      <stop offset="100%" stop-color="#6B4423"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Circle background -->
+  <circle cx="60" cy="60" r="56" fill="white" stroke="url(#leafGrad)" stroke-width="3"/>
+  
+  <!-- Soil/land arc -->
+  <path d="M 12 78 Q 60 58 108 78 Q 108 90 96 92 Q 60 80 24 92 Q 12 90 12 78 Z" fill="url(#soilGrad)"/>
+  
+  <!-- Tree trunk -->
+  <rect x="56" y="48" width="8" height="32" rx="2" fill="#6B4423"/>
+  
+  <!-- Canopy -->
+  <ellipse cx="60" cy="42" rx="24" ry="20" fill="url(#leafGrad)"/>
+  <ellipse cx="46" cy="48" rx="16" ry="14" fill="#4A7A32"/>
+  <ellipse cx="74" cy="48" rx="16" ry="14" fill="#4A7A32"/>
+  
+  <!-- Sun accent -->
+  <circle cx="88" cy="28" r="8" fill="#D4A017"/>
+  
+  <!-- Text ALMI -->
+  <text x="60" y="108" font-family="Georgia, serif" font-size="14" font-weight="bold" fill="#2F5C24" text-anchor="middle">ALMI</text>
+</svg>

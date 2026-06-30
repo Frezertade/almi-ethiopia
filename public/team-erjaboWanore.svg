@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5B8C3E"/>
+      <stop offset="100%" stop-color="#2F5C24"/>
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#D4A017"/>
+      <stop offset="100%" stop-color="#B8860B"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="400" fill="url(#bgGrad)"/>
+  <pattern id="dotsEW" width="40" height="40" patternUnits="userSpaceOnUse">
+    <circle cx="20" cy="20" r="2" fill="white" opacity="0.08"/>
+  </pattern>
+  <rect width="400" height="400" fill="url(#dotsEW)"/>
+  <circle cx="200" cy="170" r="90" fill="white" opacity="0.12"/>
+  <circle cx="200" cy="170" r="78" fill="white" opacity="0.18"/>
+  <text x="200" y="205" font-family="Georgia, 'Times New Roman', serif" font-size="80" font-weight="bold" fill="white" text-anchor="middle">EW</text>
+  <circle cx="200" cy="170" r="90" fill="none" stroke="url(#accentGrad)" stroke-width="4" opacity="0.9"/>
+  <text x="200" y="305" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500" fill="white" opacity="0.85" text-anchor="middle">ALMI Ethiopia Team</text>
+</svg>

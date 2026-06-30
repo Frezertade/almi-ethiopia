@@ -43,13 +43,13 @@ export const paypalConfig = {
 // High-quality curated images
 export const images = {
   // Brand
-  logo: "https://almiethiopia.org/wp-content/uploads/2024/02/logo.png",
+  logo: "/logo.svg",
 
   // Hero - AI-generated: two trees shaking hands (partnership & growth)
   hero: "/tree-handshake.jpg",
 
-  // About - real photos from original site
-  aboutBanner: "https://almiethiopia.org/wp-content/uploads/2024/02/qtq80-Aq3KKw-e1708154156603.jpeg",
+  // About - high-quality thematic Unsplash image
+  aboutBanner: "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=1200&q=80",
 
   // Projects - high-quality thematic Unsplash images
   agroforestry: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=900&q=80",
@@ -65,21 +65,21 @@ export const images = {
   getInvolved: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1200&q=80",
 
   // Blog covers
-  blog1: "https://images.unsplash.com/photo-1500651230702-0e2d8a49d4f7?auto=format&fit=crop&w=900&q=80",
+  blog1: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=900&q=80",
   blog2: "https://images.unsplash.com/photo-1595855709915-fa457bd2419d?auto=format&fit=crop&w=900&q=80",
   blog3: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=900&q=80",
   blog4: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=900&q=80",
   blog5: "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=900&q=80",
   blog6: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=900&q=80",
 
-  // Team member photos (real from original site)
-  drKefeni: "https://almiethiopia.org/wp-content/uploads/2024/02/Dr.-Kefene-phot-o1.png",
-  assefaFoche: "https://almiethiopia.org/wp-content/uploads/2024/02/Screenshot-2024-02-15-at-6.23.03%E2%80%AFPM.png",
-  abishuWogari: "https://almiethiopia.org/wp-content/uploads/2024/02/Abishu-wogari.png",
+  // Team member photos (generated local SVG placeholders with initials)
+  drKefeni: "/team-drKefeni.svg",
+  assefaFoche: "/team-assefaFoche.svg",
+  abishuWogari: "/team-abishuWogari.svg",
   drDejene: "/dr-dejene-alemayehu.jpg",
-  mekonnenAbote: "https://almiethiopia.org/wp-content/uploads/2024/02/Screenshot-2024-02-15-at-6.44.09%E2%80%AFPM.png",
-  drMelkamu: "https://almiethiopia.org/wp-content/uploads/2024/06/photo_2024-06-10-18.38.02.jpeg",
-  erjaboWanore: "https://almiethiopia.org/wp-content/uploads/2024/06/photo_2024-06-10-18.29.21.jpeg",
-  frezerKifle: "https://almiethiopia.org/wp-content/uploads/2024/06/Frezer.jpg",
-  betruNedessa: "https://almiethiopia.org/wp-content/uploads/2024/02/Betru-Nedessa.png",
+  mekonnenAbote: "/team-mekonnenAbote.svg",
+  drMelkamu: "/team-drMelkamu.svg",
+  erjaboWanore: "/team-erjaboWanore.svg",
+  frezerKifle: "/team-frezerKifle.svg",
+  betruNedessa: "/team-betruNedessa.svg",
 };

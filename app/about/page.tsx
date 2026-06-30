@@ -264,7 +264,7 @@ export default function AboutPage() {
                     <img
                       src={ceo.image}
                       alt={ceo.name}
-                      className="w-full h-full object-contain object-center p-7 lg:p-12 almi-portrait-img"
+                      className="max-h-full max-w-full object-contain almi-portrait-img"
                     />
                   </div>
                 </div>
@@ -297,14 +297,12 @@ export default function AboutPage() {
               <AnimatedSection key={member.name} delay={index * 0.08}>
                 <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-stone-light/10 h-full flex flex-col">
                   {/* Photo Area with background */}
-                  <div className="relative h-72 md:h-80 almi-portrait-stage overflow-hidden">
-                    <div className="absolute inset-0 flex items-end justify-center">
-                      <img
-                        src={member.image}
-                        alt={member.name}
-                        className="h-[92%] max-w-[88%] w-auto object-contain object-bottom almi-portrait-img"
-                      />
-                    </div>
+                  <div className="relative h-72 md:h-80 almi-portrait-stage overflow-hidden flex items-center justify-center">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="h-[92%] max-w-[88%] w-auto object-contain object-bottom almi-portrait-img"
+                    />
                     <div className="absolute top-4 right-4 w-16 h-16 bg-primary/5 rounded-full blur-xl" />
                   </div>
 
