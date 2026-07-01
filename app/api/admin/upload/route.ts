@@ -8,6 +8,15 @@ const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
 const DATA_DIR = path.join(process.cwd(), "public", "data");
 const IMAGES_JSON = path.join(DATA_DIR, "images.json");
 
+function isVercel() {
+  return !!(
+    process.env.VERCEL ||
+    process.env.VERCEL_ENV ||
+    process.env.VERCEL_URL ||
+    process.env.VERCEL_REGION
+  );
+}
+
 function ensureLocalDirs() {
   if (!existsSync(UPLOAD_DIR)) mkdirSync(UPLOAD_DIR, { recursive: true });
   if (!existsSync(DATA_DIR)) mkdirSync(DATA_DIR, { recursive: true });
@@ -25,8 +34,6 @@ async function writeImagesJson(data: Record<string, string>) {
 
 export async function POST(req: NextRequest) {
   try {
-    ensureLocalDirs();
-
     const form = await req.formData();
     const file = form.get("file") as File | null;
     const key = form.get("key") as string | null;
@@ -38,8 +45,14 @@ export async function POST(req: NextRequest) {
     const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
     let imageUrl: string;
 
-    if (blobToken) {
-      // Production: upload to Vercel Blob
+    if (blobToken || isVercel()) {
+      // Production / Vercel: must use Vercel Blob (filesystem is read-only)
+      if (!blobToken) {
+        return NextResponse.json(
+          { error: "BLOB_READ_WRITE_TOKEN is not configured for this Vercel environment" },
+          { status: 500 }
+        );
+      }
       const blob = await put(file.name, file, {
         access: "public",
         token: blobToken,
@@ -47,6 +60,7 @@ export async function POST(req: NextRequest) {
       imageUrl = blob.url;
     } else {
       // Local dev: fallback to local filesystem
+      ensureLocalDirs();
       const bytes = await file.arrayBuffer();
       const buffer = Buffer.from(bytes);
       const ext = path.extname(file.name).toLowerCase() || ".jpg";
