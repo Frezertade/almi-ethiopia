@@ -10,11 +10,25 @@ import { images } from "@/lib/config";
 import { useI18n } from "./i18n-provider";
 import Image from "next/image";
 
+function useRuntimeLogo() {
+  const [logo, setLogo] = useState(images.logo);
+  useEffect(() => {
+    fetch("/data/images.json", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.logo) setLogo(data.logo);
+      })
+      .catch(() => {});
+  }, []);
+  return logo;
+}
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const { t } = useI18n();
+  const logoSrc = useRuntimeLogo();
 
   const navLinks = [
     { href: "/", label: t("nav.home") as string },
@@ -51,7 +65,7 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-3 group">
             <div className={`relative w-10 h-10 md:w-12 md:h-12 rounded-lg overflow-hidden transition-colors ${scrolled ? "bg-white" : "bg-white/20 backdrop-blur-sm"}`}>
               <Image
-                src={images.logo}
+                src={logoSrc}
                 alt="ALMI Ethiopia Logo"
                 fill
                 className="object-contain p-0.5"

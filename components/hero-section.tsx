@@ -5,16 +5,31 @@ import Link from "next/link";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { images } from "@/lib/config";
 import { useI18n } from "./i18n-provider";
+import { useEffect, useState } from "react";
+
+function useRuntimeHero() {
+  const [hero, setHero] = useState(images.hero);
+  useEffect(() => {
+    fetch("/data/images.json", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.hero) setHero(data.hero);
+      })
+      .catch(() => {});
+  }, []);
+  return hero;
+}
 
 export default function HeroSection() {
   const { t } = useI18n();
+  const heroSrc = useRuntimeHero();
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <img
-          src={images.hero}
+          src={heroSrc}
           alt="Two trees shaking hands - partnership and growth"
           className="w-full h-full object-cover object-center scale-105 almi-image-treatment"
         />

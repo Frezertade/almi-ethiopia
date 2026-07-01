@@ -40,39 +40,85 @@ export const paypalConfig = {
   paypalMeLink: "https://www.paypal.com/donate/?hosted_button_id=YOUR_BUTTON_ID",
 };
 
-// High-quality curated images
+// Runtime image map loaded from editable JSON config
+// Edit via /admin/images or directly via public/data/images.json
+import { cache } from "react";
+
+const getRuntimeImages = cache(async () => {
+  const res = await fetch(`${siteConfig.url}/data/images.json`, { next: { revalidate: 60 } });
+  if (!res.ok) {
+    return {} as Record<string, string>;
+  }
+  return (await res.json()) as Record<string, string>;
+});
+
+export async function getImages() {
+  const runtime = await getRuntimeImages();
+  return {
+    // Brand
+    logo: runtime.logo ?? "/logo.svg",
+
+    // Hero
+    hero: runtime.hero ?? "/tree-handshake.jpg",
+
+    // About
+    aboutBanner: runtime.aboutBanner ?? "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=1200&q=80",
+
+    // Projects
+    agroforestry: runtime.agroforestry ?? "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=900&q=80",
+    urbanAg: runtime.urbanAg ?? "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&w=900&q=80",
+    farmImplements: runtime.farmImplements ?? "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=900&q=80",
+    community: runtime.community ?? "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=900&q=80",
+    soil: runtime.soil ?? "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=900&q=80",
+    water: runtime.water ?? "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=900&q=80",
+
+    // Pages
+    contact: runtime.contact ?? "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80",
+    donate: runtime.donate ?? "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1200&q=80",
+    getInvolved: runtime.getInvolved ?? "https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1200&q=80",
+
+    // Blog covers
+    blog1: runtime.blog1 ?? "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=900&q=80",
+    blog2: runtime.blog2 ?? "https://images.unsplash.com/photo-1595855709915-fa457bd2419d?auto=format&fit=crop&w=900&q=80",
+    blog3: runtime.blog3 ?? "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=900&q=80",
+    blog4: runtime.blog4 ?? "https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=900&q=80",
+    blog5: runtime.blog5 ?? "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=900&q=80",
+    blog6: runtime.blog6 ?? "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=900&q=80",
+
+    // Team member photos
+    drKefeni: runtime.drKefeni ?? "/team-drKefeni.svg",
+    assefaFoche: runtime.assefaFoche ?? "/team-assefaFoche.svg",
+    abishuWogari: runtime.abishuWogari ?? "/team-abishuWogari.svg",
+    drDejene: runtime.drDejene ?? "/dr-dejene-alemayehu.jpg",
+    mekonnenAbote: runtime.mekonnenAbote ?? "/team-mekonnenAbote.svg",
+    drMelkamu: runtime.drMelkamu ?? "/team-drMelkamu.svg",
+    erjaboWanore: runtime.erjaboWanore ?? "/team-erjaboWanore.svg",
+    frezerKifle: runtime.frezerKifle ?? "/team-frezerKifle.svg",
+    betruNedessa: runtime.betruNedessa ?? "/team-betruNedessa.svg",
+  };
+}
+
+// Backward-compatible static export used by the admin client.
+// Server components and static builds should prefer `getImages()`.
 export const images = {
-  // Brand
   logo: "/logo.svg",
-
-  // Hero - AI-generated: two trees shaking hands (partnership & growth)
   hero: "/tree-handshake.jpg",
-
-  // About - high-quality thematic Unsplash image
   aboutBanner: "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=1200&q=80",
-
-  // Projects - high-quality thematic Unsplash images
   agroforestry: "https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=900&q=80",
   urbanAg: "https://images.unsplash.com/photo-1530836369250-ef72a3f5cda8?auto=format&fit=crop&w=900&q=80",
   farmImplements: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=900&q=80",
   community: "https://images.unsplash.com/photo-1593113598332-cd288d649433?auto=format&fit=crop&w=900&q=80",
   soil: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=900&q=80",
   water: "https://images.unsplash.com/photo-1472214103451-9374bd1c798e?auto=format&fit=crop&w=900&q=80",
-
-  // Pages
   contact: "https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=1200&q=80",
   donate: "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?auto=format&fit=crop&w=1200&q=80",
   getInvolved: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1200&q=80",
-
-  // Blog covers
   blog1: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&w=900&q=80",
   blog2: "https://images.unsplash.com/photo-1595855709915-fa457bd2419d?auto=format&fit=crop&w=900&q=80",
   blog3: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=900&q=80",
   blog4: "https://images.unsplash.com/photo-1574943320219-553eb213f72d?auto=format&fit=crop&w=900&q=80",
   blog5: "https://images.unsplash.com/photo-1523348837708-15d4a09cfac2?auto=format&fit=crop&w=900&q=80",
   blog6: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=900&q=80",
-
-  // Team member photos (generated local SVG placeholders with initials)
   drKefeni: "/team-drKefeni.svg",
   assefaFoche: "/team-assefaFoche.svg",
   abishuWogari: "/team-abishuWogari.svg",
