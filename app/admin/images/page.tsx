@@ -78,7 +78,13 @@ export default function AdminImagesPage() {
       form.append("key", key);
 
       const res = await fetch("/api/admin/upload", { method: "POST", body: form });
-      const json = await res.json();
+      let json: any = {};
+      const text = await res.text();
+      try {
+        json = JSON.parse(text);
+      } catch {
+        throw new Error(text || "Upload failed: server returned non-JSON response");
+      }
 
       if (!res.ok) throw new Error(json.error || "Upload failed");
 

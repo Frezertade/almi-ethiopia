@@ -3,8 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import { existsSync } from "fs";
 
-export const dynamic = "force-static";
-
 const IMAGES_JSON = path.join(process.cwd(), "public", "data", "images.json");
 
 export async function GET() {
