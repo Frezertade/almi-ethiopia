@@ -2,6 +2,8 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { upload } from "@vercel/blob/client";
+import type { PutBlobResult } from "@vercel/blob";
 
 interface ImageConfig {
   [key: string]: string;
@@ -90,22 +92,14 @@ export default function AdminImagesPage() {
     setUploading(key);
     setMessage("");
     try {
-      const form = new FormData();
-      form.append("file", file);
-      form.append("key", key);
+      // Client-side upload directly to Vercel Blob, bypassing function payload limits
+      const blob: PutBlobResult = await upload(file.name, file, {
+        access: "public",
+        handleUploadUrl: "/api/admin-upload",
+        clientPayload: JSON.stringify({ key }),
+      });
 
-      const res = await fetch("/api/admin-upload", { method: "POST", body: form });
-      let json: any = {};
-      const text = await res.text();
-      try {
-        json = JSON.parse(text);
-      } catch {
-        throw new Error(text || "Upload failed: server returned non-JSON response");
-      }
-
-      if (!res.ok) throw new Error(json.error || "Upload failed");
-
-      const nextConfig = { ...config, [key]: json.url };
+      const nextConfig = { ...config, [key]: blob.url };
       setConfig(nextConfig);
       setInitialConfig(nextConfig);
       await saveConfig(nextConfig);
@@ -201,8 +195,8 @@ export default function AdminImagesPage() {
         <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-emerald-900 text-sm">
           <p className="font-semibold mb-1">How this works</p>
           <p>
-            Uploading a file saves it immediately. You only need to click <strong>Save All Changes</strong> if you
-            manually edit an image URL in the text field.
+            Uploading a file sends it directly to Vercel Blob from your browser, so large images work.
+            You only need to click <strong>Save All Changes</strong> if you manually edit an image URL.
           </p>
         </div>
 

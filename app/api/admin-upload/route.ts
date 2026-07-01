@@ -1,8 +1,13 @@
+import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
 import { list, put } from "@vercel/blob";
 import { readFile, writeFile } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import { existsSync, mkdirSync } from "fs";
+
+// @vercel/blob/client is server-safe and uses the read-write token to generate
+// short-lived client upload tokens. The actual file is uploaded directly from
+// the browser to Vercel Blob, bypassing the Vercel Function payload limit.
 
 const CONFIG_BLOB_PATH = "config/images.json";
 const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
@@ -10,12 +15,7 @@ const DATA_DIR = path.join(process.cwd(), "public", "data");
 const IMAGES_JSON = path.join(DATA_DIR, "images.json");
 
 function isVercel() {
-  return !!(
-    process.env.VERCEL ||
-    process.env.VERCEL_ENV ||
-    process.env.VERCEL_URL ||
-    process.env.VERCEL_REGION
-  );
+  return !!(process.env.VERCEL || process.env.VERCEL_ENV || process.env.VERCEL_URL || process.env.VERCEL_REGION);
 }
 
 function getToken() {
@@ -62,55 +62,45 @@ async function writeConfig(data: Record<string, string>) {
   }
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(request: NextRequest) {
   try {
-    const form = await req.formData();
-    const file = form.get("file") as File | null;
-    const key = form.get("key") as string | null;
+    const body = (await request.json()) as HandleUploadBody;
 
-    if (!file || !key) {
-      return NextResponse.json({ error: "Missing file or key" }, { status: 400 });
-    }
+    const jsonResponse = await handleUpload({
+      body,
+      request,
+      onBeforeGenerateToken: async (pathname) => {
+        // Basic validation
+        if (!pathname) throw new Error("Missing pathname");
+        return {
+          allowedContentTypes: ["image/jpeg", "image/png", "image/webp", "image/gif", "image/svg+xml"],
+          addRandomSuffix: true,
+          tokenPayload: JSON.stringify({ key: pathname }),
+        };
+      },
+      onUploadCompleted: async ({ blob, tokenPayload }) => {
+        const { key } = JSON.parse(tokenPayload || "{}");
+        if (!key) {
+          console.error("Missing key in upload token payload");
+          return;
+        }
+        try {
+          const existing = await readConfigFromBlob();
+          const fallback = await readStaticFallback();
+          const imagesData = { ...fallback, ...(existing ?? {}) };
+          imagesData[key] = blob.url;
+          await writeConfig(imagesData);
+          console.log(`Saved ${key} -> ${blob.url}`);
+        } catch (err: any) {
+          console.error("Failed to save config after upload:", err);
+          throw new Error("Could not save uploaded image config");
+        }
+      },
+    });
 
-    const blobToken = process.env.BLOB_READ_WRITE_TOKEN;
-    let imageUrl: string;
-
-    if (blobToken || isVercel()) {
-      // Production / Vercel: must use Vercel Blob (filesystem is read-only)
-      if (!blobToken) {
-        return NextResponse.json(
-          { error: "BLOB_READ_WRITE_TOKEN is not configured for this Vercel environment" },
-          { status: 500 }
-        );
-      }
-      const blob = await put(file.name, file, {
-        access: "public",
-        token: blobToken,
-        addRandomSuffix: true,
-      });
-      imageUrl = blob.url;
-    } else {
-      // Local dev: fallback to local filesystem
-      ensureLocalDirs();
-      const bytes = await file.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      const ext = path.extname(file.name).toLowerCase() || ".jpg";
-      const safeKey = key.replace(/[^a-zA-Z0-9_-]/g, "");
-      const filename = `${safeKey}-${Date.now()}${ext}`;
-      const filePath = path.join(UPLOAD_DIR, filename);
-      await writeFile(filePath, buffer);
-      imageUrl = `/uploads/${filename}`;
-    }
-
-    const existing = await readConfigFromBlob();
-    const fallback = await readStaticFallback();
-    const imagesData = { ...fallback, ...(existing ?? {}) };
-    imagesData[key] = imageUrl;
-    await writeConfig(imagesData);
-
-    return NextResponse.json({ ok: true, url: imageUrl, key });
-  } catch (err: any) {
-    console.error("Upload error:", err);
-    return NextResponse.json({ error: err.message || "Upload failed" }, { status: 500 });
+    return NextResponse.json(jsonResponse);
+  } catch (error) {
+    console.error("Upload route error:", error);
+    return NextResponse.json({ error: (error as Error).message }, { status: 400 });
   }
 }
