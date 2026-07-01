@@ -18,7 +18,7 @@ const objectives = [
 function useRuntimeImages() {
   const [runtime, setRuntime] = useState<Record<string, string>>({});
   useEffect(() => {
-    fetch("/api/admin/images", { cache: "no-store" })
+    fetch("/api/admin-images", { cache: "no-store" })
       .then((r) => r.json())
       .then((data) => setRuntime(data))
       .catch(() => setRuntime({}));
