@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 function useRuntimeHero() {
   const [hero, setHero] = useState(images.hero);
   useEffect(() => {
-    fetch("/data/images.json", { cache: "no-store" })
+    fetch("/api/admin/images", { cache: "no-store" })
       .then((r) => r.json())
       .then((data) => {
         if (data.hero) setHero(data.hero);

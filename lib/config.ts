@@ -45,7 +45,7 @@ export const paypalConfig = {
 import { cache } from "react";
 
 const getRuntimeImages = cache(async () => {
-  const res = await fetch(`${siteConfig.url}/data/images.json`, { next: { revalidate: 60 } });
+  const res = await fetch(`${siteConfig.url}/api/admin/images`, { next: { revalidate: 60 } });
   if (!res.ok) {
     return {} as Record<string, string>;
   }

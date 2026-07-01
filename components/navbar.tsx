@@ -13,7 +13,7 @@ import Image from "next/image";
 function useRuntimeLogo() {
   const [logo, setLogo] = useState(images.logo);
   useEffect(() => {
-    fetch("/data/images.json", { cache: "no-store" })
+    fetch("/api/admin/images", { cache: "no-store" })
       .then((r) => r.json())
       .then((data) => {
         if (data.logo) setLogo(data.logo);
