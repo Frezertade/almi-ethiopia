@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 
 interface ImageConfig {
@@ -26,6 +26,7 @@ export default function AdminImagesPage() {
   const [authenticated, setAuthenticated] = useState(false);
   const [password, setPassword] = useState("");
   const [config, setConfig] = useState<ImageConfig>({});
+  const [initialConfig, setInitialConfig] = useState<ImageConfig>({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState<string | null>(null);
@@ -39,11 +40,15 @@ export default function AdminImagesPage() {
 
   const fetchConfig = useCallback(async () => {
     try {
-      const res = await fetch("/api/admin/images");
+      setLoading(true);
+      const res = await fetch("/api/admin-images", { cache: "no-store" });
       const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed to load config");
       setConfig(data);
-    } catch (err) {
-      setMessage("Failed to load config");
+      setInitialConfig(data);
+      setMessage("");
+    } catch (err: any) {
+      setMessage(err.message || "Failed to load config");
     } finally {
       setLoading(false);
     }
@@ -69,6 +74,18 @@ export default function AdminImagesPage() {
     setAuthenticated(false);
   };
 
+  const saveConfig = async (nextConfig: ImageConfig) => {
+    const res = await fetch("/api/admin-images", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(nextConfig),
+    });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      throw new Error(data.error || "Save failed");
+    }
+  };
+
   const handleFileUpload = async (key: string, file: File) => {
     setUploading(key);
     setMessage("");
@@ -77,7 +94,7 @@ export default function AdminImagesPage() {
       form.append("file", file);
       form.append("key", key);
 
-      const res = await fetch("/api/admin/upload", { method: "POST", body: form });
+      const res = await fetch("/api/admin-upload", { method: "POST", body: form });
       let json: any = {};
       const text = await res.text();
       try {
@@ -88,10 +105,14 @@ export default function AdminImagesPage() {
 
       if (!res.ok) throw new Error(json.error || "Upload failed");
 
-      setConfig((prev) => ({ ...prev, [key]: json.url }));
-      setMessage(`Uploaded ${key} successfully`);
+      const nextConfig = { ...config, [key]: json.url };
+      setConfig(nextConfig);
+      setInitialConfig(nextConfig);
+      await saveConfig(nextConfig);
+      setMessage(`✅ ${key} uploaded and saved. Refresh the site to see it.`);
+      router.refresh();
     } catch (err: any) {
-      setMessage(err.message || "Upload failed");
+      setMessage(`❌ ${key}: ${err.message || "Upload failed"}`);
     } finally {
       setUploading(null);
     }
@@ -105,20 +126,18 @@ export default function AdminImagesPage() {
     setSaving(true);
     setMessage("");
     try {
-      const res = await fetch("/api/admin/images", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(config),
-      });
-      if (!res.ok) throw new Error("Save failed");
-      setMessage("Saved. Changes appear on the site within ~60 seconds.");
+      await saveConfig(config);
+      setInitialConfig(config);
+      setMessage("✅ Saved. Changes appear on the site within ~60 seconds.");
       router.refresh();
     } catch (err: any) {
-      setMessage(err.message || "Save failed");
+      setMessage(`❌ Save failed: ${err.message || "Save failed"}`);
     } finally {
       setSaving(false);
     }
   };
+
+  const hasChanges = JSON.stringify(config) !== JSON.stringify(initialConfig);
 
   if (!authenticated) {
     return (
@@ -158,18 +177,34 @@ export default function AdminImagesPage() {
       <header className="bg-white border-b border-stone-200 sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <h1 className="text-xl font-bold text-[#1f2937]">ALMI Image Manager</h1>
-          <button onClick={handleLogout} className="text-sm text-[#4b5563] hover:text-[#1f2937] underline">
-            Log out
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={fetchConfig}
+              className="text-sm text-[#4b5563] hover:text-[#1f2937] underline"
+            >
+              Reload config
+            </button>
+            <button onClick={handleLogout} className="text-sm text-[#4b5563] hover:text-[#1f2937] underline">
+              Log out
+            </button>
+          </div>
         </div>
       </header>
 
       <main className="max-w-6xl mx-auto px-4 py-8 space-y-10">
         {message && (
-          <div className="bg-white rounded-xl border border-stone-200 p-4 text-[#1f2937]">
+          <div className="bg-white rounded-xl border border-stone-200 p-4 text-[#1f2937] whitespace-pre-line">
             {message}
           </div>
         )}
+
+        <div className="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-emerald-900 text-sm">
+          <p className="font-semibold mb-1">How this works</p>
+          <p>
+            Uploading a file saves it immediately. You only need to click <strong>Save All Changes</strong> if you
+            manually edit an image URL in the text field.
+          </p>
+        </div>
 
         <section className="bg-white rounded-2xl border border-stone-200 p-6 shadow-sm">
           <h2 className="text-lg font-semibold text-[#1f2937] mb-6">Brand Logo</h2>
@@ -215,10 +250,10 @@ export default function AdminImagesPage() {
         <div className="flex items-center justify-end gap-4">
           <button
             onClick={handleSave}
-            disabled={saving}
-            className="bg-[#2d5a3d] hover:bg-[#1e3d2a] disabled:opacity-60 text-white font-semibold px-6 py-3 rounded-lg transition-colors"
+            disabled={saving || !hasChanges}
+            className="bg-[#2d5a3d] hover:bg-[#1e3d2a] disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold px-6 py-3 rounded-lg transition-colors"
           >
-            {saving ? "Saving..." : "Save All Changes"}
+            {saving ? "Saving..." : hasChanges ? "Save All Changes" : "No changes to save"}
           </button>
         </div>
       </main>
@@ -242,6 +277,9 @@ function ImageRow({
   uploading: string | null;
 }) {
   const src = config[imageKey] || "";
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const isUploaded = src && !src.startsWith("/") && !src.includes("unsplash.com");
+
   return (
     <div className="flex flex-col md:flex-row gap-6 items-start">
       <div className="w-full md:w-48 h-32 bg-stone-100 rounded-xl border border-stone-200 flex items-center justify-center overflow-hidden">
@@ -252,17 +290,25 @@ function ImageRow({
         )}
       </div>
       <div className="flex-1 w-full space-y-3">
-        <label className="block text-sm font-medium text-[#1f2937]">{label}</label>
+        <div className="flex items-center gap-2">
+          <label className="block text-sm font-medium text-[#1f2937]">{label}</label>
+          {isUploaded && (
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-100 text-emerald-800">
+              uploaded
+            </span>
+          )}
+        </div>
         <input
           type="text"
           value={src}
           onChange={(e) => onUrlChange(imageKey, e.target.value)}
-          placeholder="Image URL"
+          placeholder="Image URL (or upload a file)"
           className="w-full px-3 py-2 rounded-lg border border-stone-300 focus:outline-none focus:ring-2 focus:ring-[#2d5a3d]"
         />
         <label className="inline-flex items-center gap-2 px-4 py-2 bg-[#2d5a3d] hover:bg-[#1e3d2a] text-white text-sm font-medium rounded-lg cursor-pointer transition-colors">
           {uploading === imageKey ? "Uploading..." : "Upload file"}
           <input
+            ref={fileInputRef}
             type="file"
             accept="image/*"
             className="hidden"
@@ -270,6 +316,7 @@ function ImageRow({
             onChange={(e) => {
               const file = e.target.files?.[0];
               if (file) onUpload(imageKey, file);
+              if (fileInputRef.current) fileInputRef.current.value = "";
             }}
           />
         </label>
@@ -294,6 +341,9 @@ function ImageCard({
   uploading: string | null;
 }) {
   const src = config[imageKey] || "";
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const isUploaded = src && !src.startsWith("/") && !src.includes("unsplash.com");
+
   return (
     <div className="bg-stone-50 rounded-xl border border-stone-200 p-4 space-y-3">
       <div className="w-full h-40 bg-white rounded-lg border border-stone-200 flex items-center justify-center overflow-hidden">
@@ -304,19 +354,27 @@ function ImageCard({
         )}
       </div>
       <div>
-        <p className="text-sm font-medium text-[#1f2937]">{label}</p>
+        <div className="flex items-center gap-2">
+          <p className="text-sm font-medium text-[#1f2937]">{label}</p>
+          {isUploaded && (
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-emerald-100 text-emerald-800">
+              uploaded
+            </span>
+          )}
+        </div>
         <p className="text-xs text-[#9ca3af] font-mono">{imageKey}</p>
       </div>
       <input
         type="text"
         value={src}
         onChange={(e) => onUrlChange(imageKey, e.target.value)}
-        placeholder="Image URL"
+        placeholder="Image URL (or upload a file)"
         className="w-full px-3 py-2 text-sm rounded-lg border border-stone-300 focus:outline-none focus:ring-2 focus:ring-[#2d5a3d]"
       />
       <label className="inline-flex items-center gap-2 px-3 py-2 bg-[#2d5a3d] hover:bg-[#1e3d2a] text-white text-sm font-medium rounded-lg cursor-pointer transition-colors">
         {uploading === imageKey ? "Uploading..." : "Upload file"}
         <input
+          ref={fileInputRef}
           type="file"
           accept="image/*"
           className="hidden"
@@ -324,6 +382,7 @@ function ImageCard({
           onChange={(e) => {
             const file = e.target.files?.[0];
             if (file) onUpload(imageKey, file);
+            if (fileInputRef.current) fileInputRef.current.value = "";
           }}
         />
       </label>
