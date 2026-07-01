@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import { existsSync } from "fs";
 
-const BLOB_PATH = "config/images.json";
+const CONFIG_BLOB_PATH = "config/images.json";
 const IMAGES_JSON = path.join(process.cwd(), "public", "data", "images.json");
 
 function getToken() {
@@ -21,8 +21,8 @@ async function readStaticFallback(): Promise<Record<string, string>> {
 
 async function getConfigBlobUrl(): Promise<string | null> {
   const token = getToken();
-  const { blobs } = await list({ prefix: BLOB_PATH, token });
-  return blobs.find((b) => b.pathname === BLOB_PATH)?.url ?? null;
+  const { blobs } = await list({ prefix: CONFIG_BLOB_PATH, token });
+  return blobs.find((b) => b.pathname === CONFIG_BLOB_PATH)?.url ?? null;
 }
 
 async function readConfigFromBlob(): Promise<Record<string, string> | null> {
@@ -60,10 +60,11 @@ export async function PUT(req: NextRequest) {
     const existing = await readConfigFromBlob();
     const merged = { ...(existing ?? {}), ...body };
 
-    const blob = await put(BLOB_PATH, JSON.stringify(merged, null, 2), {
+    const blob = await put(CONFIG_BLOB_PATH, JSON.stringify(merged, null, 2), {
       access: "public",
       contentType: "application/json",
       token,
+      allowOverwrite: true,
     });
 
     return NextResponse.json({ ok: true, url: blob.url });

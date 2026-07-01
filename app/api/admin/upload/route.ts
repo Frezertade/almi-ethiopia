@@ -54,6 +54,7 @@ async function writeConfig(data: Record<string, string>) {
       access: "public",
       contentType: "application/json",
       token,
+      allowOverwrite: true,
     });
   } else {
     ensureLocalDirs();
