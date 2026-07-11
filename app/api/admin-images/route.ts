@@ -3,6 +3,7 @@ import { readFile } from "fs/promises";
 import { NextRequest, NextResponse } from "next/server";
 import path from "path";
 import { existsSync } from "fs";
+import { mergeImageConfig } from "@/lib/image-config";
 
 const CONFIG_BLOB_PATH = "config/images.json";
 const IMAGES_JSON = path.join(process.cwd(), "public", "data", "images.json");
@@ -36,7 +37,8 @@ async function readConfigFromBlob(): Promise<Record<string, string> | null> {
 async function getMergedConfig(): Promise<Record<string, string>> {
   const fallback = await readStaticFallback();
   const blobConfig = await readConfigFromBlob();
-  return { ...fallback, ...(blobConfig ?? {}) };
+  // Prefer real static photos over stale blob placeholder SVGs
+  return mergeImageConfig(fallback, blobConfig);
 }
 
 export async function GET() {
@@ -47,7 +49,15 @@ export async function GET() {
     });
   } catch (err: any) {
     console.error("GET images config error:", err);
-    return NextResponse.json({ error: err.message }, { status: 500 });
+    // Still serve static defaults so team photos never disappear in production
+    try {
+      const fallback = await readStaticFallback();
+      return NextResponse.json(fallback, {
+        headers: { "Cache-Control": "no-store, max-age=0" },
+      });
+    } catch {
+      return NextResponse.json({ error: err.message }, { status: 500 });
+    }
   }
 }
 
@@ -58,7 +68,11 @@ export async function PUT(req: NextRequest) {
 
     // Merge with existing blob config so we don't lose other keys
     const existing = await readConfigFromBlob();
-    const merged = { ...(existing ?? {}), ...body };
+    const fallback = await readStaticFallback();
+    const merged = mergeImageConfig(
+      mergeImageConfig(fallback, existing),
+      body as Record<string, string>
+    );
 
     const blob = await put(CONFIG_BLOB_PATH, JSON.stringify(merged, null, 2), {
       access: "public",
@@ -67,7 +81,7 @@ export async function PUT(req: NextRequest) {
       allowOverwrite: true,
     });
 
-    return NextResponse.json({ ok: true, url: blob.url });
+    return NextResponse.json({ ok: true, url: blob.url, config: merged });
   } catch (err: any) {
     console.error("PUT images config error:", err);
     return NextResponse.json({ error: err.message }, { status: 500 });

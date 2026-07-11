@@ -3,6 +3,7 @@
 import PageHeader from "@/components/page-header";
 import AnimatedSection from "@/components/animated-section";
 import { images } from "@/lib/config";
+import { resolveImageUrl } from "@/lib/image-config";
 import { CheckCircle, Target, Eye, Heart } from "lucide-react";
 import { useI18n } from "@/components/i18n-provider";
 import { useEffect, useState } from "react";
@@ -19,9 +20,14 @@ function useRuntimeImages() {
   const [runtime, setRuntime] = useState<Record<string, string>>({});
   useEffect(() => {
     fetch("/api/admin-images", { cache: "no-store" })
-      .then((r) => r.json())
-      .then((data) => setRuntime(data))
-      .catch(() => setRuntime({}));
+      .then(async (r) => {
+        if (!r.ok) return;
+        const data = await r.json();
+        // Ignore error payloads so we keep static portrait defaults
+        if (!data || typeof data !== "object" || data.error) return;
+        setRuntime(data as Record<string, string>);
+      })
+      .catch(() => {});
   }, []);
   return runtime;
 }
@@ -94,7 +100,9 @@ export default function AboutPage() {
   const { t } = useI18n();
   const runtime = useRuntimeImages();
 
-  const getImage = (key: keyof typeof images) => runtime[key] ?? images[key];
+  // Prefer real runtime photos; never let placeholder SVGs replace static portraits
+  const getImage = (key: keyof typeof images) =>
+    resolveImageUrl(key, runtime, images);
 
   return (
     <>
