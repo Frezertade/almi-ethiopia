@@ -15,7 +15,7 @@ const team = [
   {
     name: "Assefa Foche (MBA)",
     role: "Executive Member & Secretary",
-    bio: "MBA from University of Phoenix. Extensive experience in finance, commerce, and logistics in Ethiopia and the United States. Strong leadership in cross-functional team building.",
+    bio: "MBA, University of Phoenix. 30+ years of leadership in public administration, agriculture, logistics, nonprofit management, and community development across Ethiopia and the U.S. Executive Member & Secretary of ALMI-Ethiopia.",
     initials: "AF",
     color: "bg-accent",
   },
